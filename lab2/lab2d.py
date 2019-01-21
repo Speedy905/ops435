@@ -5,7 +5,7 @@
 # Imports sys
 import sys
 
-#Check if file called has 2 arguments
+#Check if file called has 3 arguments
 #If it does, it prints out the info
 if len(sys.argv) == 3:
 	name = sys.argv[1]
