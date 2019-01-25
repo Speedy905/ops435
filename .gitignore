@@ -1,2 +1,5 @@
 # Ignore lab checking script
 CheckLab*.py
+
+# Ignore __pycache__
+__pycache__
