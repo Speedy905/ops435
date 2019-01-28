@@ -23,7 +23,7 @@ def give_first_and_last_item():
     # Does not accept any arguments
     # Returns a list that includes the first and last items 
     #in the global my_list
-    return my_list[0], my_list[3]
+    return [my_list[0], my_list[3]]
 
 def give_second_and_third_item():
     # Does not accept any arguments
