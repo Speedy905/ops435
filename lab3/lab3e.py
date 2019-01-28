@@ -17,19 +17,19 @@ def give_first_item():
     # Does not accept any arguments
     # Returns a single string that is the 
     #first item in the global my_list
-    return my_list[0]
+    return str(my_list[0])
 
 def give_first_and_last_item():
     # Does not accept any arguments
     # Returns a list that includes the first and last items 
     #in the global my_list
-    return my_list[0], my_list[-1]
+    return my_list[0], my_list[3]
 
 def give_second_and_third_item():
     # Does not accept any arguments
     # Returns a list that includes the second and third items in 
     # the global my_list
-    return my_list[1], my_list[2]
+    return my_list[1:3]
 
 if __name__ == '__main__':   
 	# This section also referred to as a "main code"
