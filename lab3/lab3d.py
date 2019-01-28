@@ -2,13 +2,12 @@
 
 #Antonio Karlo Mijares
 
-#Import os and sys
+#Import os
 import os
 
 def free_space():
-	remaining = os.system("df -h | grep '/$' | awk '{print $4}'")
-	utf = remaining[0].decode('utf-8').strip()
-	print(remaining)
+	remaining = os.popen("df -h | grep '/$' | awk '{print $4}'").read().strip()
+	return remaining
 	
 
-free_space()
+print(free_space())
