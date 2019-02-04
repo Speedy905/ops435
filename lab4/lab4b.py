@@ -5,7 +5,7 @@
 def join_lists(l1, l2):
     # join_lists will return a list that contains 
     # every value from both l1 and l2
-    return set(l1) | set(l2)
+    return l1 + l2
     
 def match_lists(l1, l2):
     # match_lists will return a list that contains 
