@@ -27,7 +27,7 @@ def middle_number(m_num):
 
 def first_three_last_three(f_three, l_three):
     # Place code here - refer to function specifics in section below
-    return f_three[0:4] + l_three[-3:]
+    return f_three[0:3] + l_three[-3:]
 
 
 if __name__ == '__main__':
