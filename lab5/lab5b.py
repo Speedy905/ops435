@@ -35,11 +35,14 @@ def copy_file_add_line_numbers(file_name_read, file_name_write):
     # Takes two strings, reads data from first file, writes data to new file, adds line number to new file
     f = open(file_name_read, 'r')
     read = f.read()
-    f.close()
-    file2 = open(file_name_write, 'w')
-    file2.write(read)
-    file2.close()
-    return(read)
+    #f.close()
+    linenum = 1
+    f2 = open(file_name_write, 'w')
+    for line in file_name_read:
+        reading = f.readlines()
+        #file_name_write.write (str(linenum)+ '\t' +line)
+        linenum +=1
+    return read
 
 if __name__ == '__main__':
     file1 = 'seneca1.txt'
