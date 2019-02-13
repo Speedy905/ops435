@@ -5,7 +5,7 @@
 def add(number1, number2):
     # Add two numbers together, return the result, if error return string 'error: could not add numbers'
     try:
-        t = int(number1) + number2
+        t = int(number1) + int(number2)
         return t
     except:
         sumerror = 'error: could not add numbers'
@@ -15,10 +15,9 @@ def read_file(filename):
     # Read a file, return a list of all lines, if error return string 'error: could not read file'
     try:
         f=open(filename, 'r')
-        t = f.read()
-        s = t.splitlines()
-        f.close()
-        return (s)
+        f2read = f.readlines()
+        return f2read
+
     except:
         fileerror = 'error: could not read file'
         return fileerror
