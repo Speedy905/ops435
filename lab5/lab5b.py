@@ -34,15 +34,14 @@ def write_file_list(file_name, list_of_lines):
 def copy_file_add_line_numbers(file_name_read, file_name_write):
     # Takes two strings, reads data from first file, writes data to new file, adds line number to new file
     f = open(file_name_read, 'r')
-    read = f.read()
-    #f.close()
-    linenum = 1
-    f2 = open(file_name_write, 'w')
-    for line in file_name_read:
-        reading = f.readlines()
-        #file_name_write.write (str(linenum)+ '\t' +line)
-        linenum +=1
-    return read
+    n = open(file_name_write, 'w')
+    r = f.read()
+    s = r.splitlines()
+    for c, value in enumerate(s,1):
+        w = n.write('\n'.join([str(c)+':'+value]) + '\n')
+    f.close()
+    n.close()
+    return (w)
 
 if __name__ == '__main__':
     file1 = 'seneca1.txt'
