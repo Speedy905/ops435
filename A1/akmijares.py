@@ -17,7 +17,7 @@ import sys, os
 # showusage function
 # Shows the user how they should use the program properly
 def showusage():
-    return "Usage: a1_rchan.py [--step] YYYYMMDD +/-n"
+    return "Usage: akmijares.py [--step] YYYYMMDD +/-n"
 
 # First part of the code that runs. 
 # It goes through an exception checking
