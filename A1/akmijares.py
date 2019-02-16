@@ -52,21 +52,22 @@ def checknums(datearg, numarg):
 # to see if the arguments are right
 # If it is, it calls the function
 # If not, it calls the showusage function
-if len(sys.argv) == 3:
-    try:
-        date = int(sys.argv[1])
-        number = int(sys.argv[2])
-        checknums(date, number)
-    except: 
-        print(showusage())
-elif len(sys.argv) == 4:
-    try:
-        date = int(sys.argv[1])
-        number = int(sys.argv[3])
-        steparg = str(sys.argv[2])
-        if steparg == "--step":
-            print ('test')
-        else:
+if __name__ == "__main__":
+    if len(sys.argv) == 3:
+        try:
+            date = int(sys.argv[1])
+            number = abs(sys.argv[2])
+            checknums(date, number)
+        except: 
             print(showusage())
-    except:
-        print (showusage())
+    elif len(sys.argv) == 4:
+        try:
+            steparg = str(sys.argv[1])
+            date = int(sys.argv[2])
+            number = int(sys.argv[3])
+            if steparg == "--step":
+                print ('test')
+            else:
+                print(showusage())
+        except:
+            print (showusage())
