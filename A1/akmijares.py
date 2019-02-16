@@ -19,9 +19,17 @@ import sys, os
 def showusage():
     return "Usage: akmijares.py [--step] YYYYMMDD +/-n"
 
+# aftertoday function
+# Adds number of days after date
 def aftertoday(datevar, numtoadd):
     afterdate = datevar + numtoadd
     return afterdate
+
+# beforetoday function
+# Subtracts number of days before date
+def beforetoday(datevar2, numtosub):
+    beforedate = datvar2 - numtosub
+    return beforetoday
 
 # Checks if the arguments given are proper
 # If they are, it calls the functions
@@ -30,7 +38,7 @@ def checknums(datearg, numarg):
         if numarg >= 0:
             print(aftertoday(int(datearg), numarg))
         elif numarg < 0:
-            print("test")
+            print (beforetoday(int(datearg), numarg))
     else:
         print(showusage())
 
