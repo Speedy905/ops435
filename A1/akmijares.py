@@ -1,4 +1,4 @@
-#!/usr/bin/env python 3
+#!/usr/bin/env python3
 
 #OPS435 Assignment 1 - Winter 2019
 #Program: akmijares.py (replace student_id with your Seneca User name)
@@ -14,3 +14,8 @@
 #Imports the sys and os modules
 import sys, os
 
+try:
+    date = sys.argv[1]
+    number = sys.argv[2]
+except:
+    print ("test")
