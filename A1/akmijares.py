@@ -17,15 +17,13 @@ import sys, os
 # showusage function
 # Shows the user how they should use the program properly
 def showusage():
-    return """
-    Ways to use this program:
-    a) YYYYMMDD [Positve or negative number, cannot be 0]
-    b) YYYYMMDD --step [Positve or negative number, cannot be 0]
-    """
+    return "Usage: a1_rchan.py [--step] YYYYMMDD +/-n"
 
 
 try:
-    date = sys.argv[1]
-    number = sys.argv[2]
+    if len(sys.argv) == 3:
+        date = sys.argv[1]
+        number = sys.argv[2]
+    elif len(sys.argv) == 4:
 except:
     print (showusage())
