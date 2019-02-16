@@ -19,7 +19,16 @@ import sys, os
 def showusage():
     return "Usage: a1_rchan.py [--step] YYYYMMDD +/-n"
 
-
+# First part of the code that runs. 
+# It goes through an exception checking
+# whether or not its ran properly or not
+# If the arguments were not given properly
+# it calls the showusage function
+# Otherwise it goes through a bunch of 
+# if/elif/else statements
+# to see if the arguments are right
+# If it is, it calls the function
+# If not, it calls the showusage function
 try:
     if len(sys.argv) == 3:
         date = int(sys.argv[1])
