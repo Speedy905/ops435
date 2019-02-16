@@ -10,3 +10,7 @@
 #with anyone or anything except for submission for grading.  
 #I understand that the Academic Honesty Policy will be enforced and 
 #violators will be reported and appropriate action will be taken.
+
+#Imports the sys and os modules
+import sys, os
+
