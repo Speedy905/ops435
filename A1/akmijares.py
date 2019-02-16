@@ -14,8 +14,18 @@
 #Imports the sys and os modules
 import sys, os
 
+# showusage function
+# Shows the user how they should use the program properly
+def showusage():
+    return """
+    Ways to use this program:
+    a) YYYYMMDD [Positve or negative number, cannot be 0]
+    b) YYYYMMDD --step [Positve or negative number, cannot be 0]
+    """
+
+
 try:
     date = sys.argv[1]
     number = sys.argv[2]
 except:
-    print ("test")
+    print (showusage())
