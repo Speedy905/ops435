@@ -19,6 +19,23 @@ import sys, os
 def showusage():
     return "Usage: akmijares.py [--step] YYYYMMDD +/-n"
 
+def aftertoday(datevar, numtoadd):
+    afterdate = datevar + numtoadd
+    return afterdate
+
+# Checks if the arguments given are proper
+# If they are, it calls the functions
+def checknums(datearg, numarg):
+    datetemp = str(datearg)
+    if len(datetemp) == 8:
+        if numarg >= 0:
+            datebacktoint = int(datetemp)
+            print(aftertoday(datetemp, numarg))
+        elif numarg < 0:
+            print("test")
+    else:
+        print(showusage())
+
 # First part of the code that runs. 
 # It goes through an exception checking
 # whether or not its ran properly or not
@@ -33,6 +50,7 @@ try:
     if len(sys.argv) == 3:
         date = int(sys.argv[1])
         number = int(sys.argv[2])
+        checknums(date, number)
     elif len(sys.argv) == 4:
         date = int(sys.argv[1])
         number = int(sys.argv[3])
