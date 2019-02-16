@@ -45,6 +45,25 @@ def checknums(datearg, numarg):
     else:
         print(showusage())
 
+# validdate function
+# Converts date to string, so it can be
+# stripped, then it checks to see
+# if numbers are in range. 
+# If in range, considered valid date
+# If not, prints out error message. 
+def validdate(datecheck):
+    datestring= str(datecheck)
+    year = datestring[0:4]
+    month = datestring[4:6]
+    day = datestring[6:8]
+    
+    yearint = int(year)
+    monthint = int(month)
+    dayint = int(day)
+    
+    
+    
+
 # First part of the code that runs. 
 # It goes through an exception checking
 # whether or not its ran properly or not
@@ -60,7 +79,8 @@ if __name__ == "__main__":
         try:
             date = int(sys.argv[1])
             number = int(sys.argv[2])
-            checknums(date, number)
+            #checknums(date, number)
+            validdate(date)
         except ValueError: 
             print(showusage())
     elif len(sys.argv) == 4:
