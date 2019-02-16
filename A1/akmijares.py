@@ -26,11 +26,9 @@ def aftertoday(datevar, numtoadd):
 # Checks if the arguments given are proper
 # If they are, it calls the functions
 def checknums(datearg, numarg):
-    datetemp = str(datearg)
-    if len(datetemp) == 8:
+    if len(str(datearg)) == 8:
         if numarg >= 0:
-            datebacktoint = int(datetemp)
-            print(aftertoday(datetemp, numarg))
+            print(aftertoday(int(datearg), numarg))
         elif numarg < 0:
             print("test")
     else:
@@ -46,12 +44,15 @@ def checknums(datearg, numarg):
 # to see if the arguments are right
 # If it is, it calls the function
 # If not, it calls the showusage function
-try:
-    if len(sys.argv) == 3:
+if len(sys.argv) == 3:
+    try:
         date = int(sys.argv[1])
         number = int(sys.argv[2])
         checknums(date, number)
-    elif len(sys.argv) == 4:
+    except: 
+        print(showusage())
+elif len(sys.argv) == 4:
+    try:
         date = int(sys.argv[1])
         number = int(sys.argv[3])
         steparg = str(sys.argv[2])
@@ -59,5 +60,5 @@ try:
             print ('test')
         else:
             print(showusage())
-except:
-    print (showusage())
+    except:
+        print (showusage())
