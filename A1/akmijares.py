@@ -27,18 +27,21 @@ def aftertoday(datevar, numtoadd):
 
 # beforetoday function
 # Subtracts number of days before date
+# Also converts negative integer to positive
+# before subtracting
 def beforetoday(datevar2, numtosub):
-    beforedate = datvar2 - numtosub
-    return beforetoday
+    positive= abs(numtosub)
+    beforedate = datevar2 - positive
+    return beforedate
 
 # Checks if the arguments given are proper
 # If they are, it calls the functions
 def checknums(datearg, numarg):
     if len(str(datearg)) == 8:
-        if numarg >= 0:
+        if numarg > 0:
             print(aftertoday(int(datearg), numarg))
-        elif numarg < 0:
-            print (beforetoday(int(datearg), numarg))
+        elif numarg <= 0:
+            print(beforetoday(int(datearg), numarg))
     else:
         print(showusage())
 
@@ -58,7 +61,7 @@ if __name__ == "__main__":
             date = int(sys.argv[1])
             number = int(sys.argv[2])
             checknums(date, number)
-        except: 
+        except ValueError: 
             print(showusage())
     elif len(sys.argv) == 4:
         try:
@@ -69,5 +72,5 @@ if __name__ == "__main__":
                 print ('test')
             else:
                 print(showusage())
-        except:
+        except ValueError:
             print (showusage())
