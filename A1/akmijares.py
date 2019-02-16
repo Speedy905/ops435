@@ -22,8 +22,15 @@ def showusage():
 
 try:
     if len(sys.argv) == 3:
-        date = sys.argv[1]
-        number = sys.argv[2]
+        date = int(sys.argv[1])
+        number = int(sys.argv[2])
     elif len(sys.argv) == 4:
+        date = int(sys.argv[1])
+        number = int(sys.argv[3])
+        steparg = str(sys.argv[2])
+        if steparg == "--step":
+            print ('test')
+        else:
+            print(showusage())
 except:
     print (showusage())
