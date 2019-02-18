@@ -21,6 +21,9 @@ def usage():
 
 # aftertoday function
 # Adds number of days after date
+# If adding the day goes to the new month/year
+# It Changes so that, it'll also change to the next
+# month or year
 def aftertoday(datevar, numtoadd, leapcheck):
     if leapcheck == True:
         feb = 29
