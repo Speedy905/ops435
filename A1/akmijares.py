@@ -55,42 +55,101 @@ def checknums(datearg, numarg):
 # If in range, considered valid date
 # If not, prints out error message. 
 def validdate(datecheck):
-    month31 = [01,03,05,07,08,10,12]
-    month30 = [04,06,09,11]
-    month28 = 02
+    month31 = [1, 3, 5, 7, 8, 10, 12]
+    month30 = [4,6,9,11]
     
     datestring= str(datecheck)
     year = datestring[0:4]
     month = datestring[4:6]
     day = datestring[6:]
     
-    if month > 0 and month <=12:
-            if month in month31:
-                if day >=1 and day <=31:
-                    print ("month31")
+    
+    yearint = int(year)
+    monthint = int(month)
+    dayint = int(day)
+    
+    leap = yearint % 4
+    leap2 = yearint % 100
+    leap3 = yearint % 400
+    
+    if leap == 0:
+        if leap2 == 0:
+            if leap3 == 0:
+                if monthint > 0 and monthint <=12:
+                    if monthint in month31:
+                        if dayint >=1 and dayint <=31:
+                            print ("month31")
+                        else:
+                            print ("Error: wrong day entered")
+                    elif monthint in month30:
+                        if dayint >=1 and dayint <=30:
+                            print ("month30")
+                        else:
+                            print ("Error: wrong day entered")
+                    elif month == 2:
+                        if dayint >=1 and dayint <=29:
+                            print ("leap year")
+                        else:
+                            print ("Error: wrong day entered")
                 else:
-                    print ("Error: wrong day entered")
-            elif month in month30:
-                if day >=1 and day <=30:
-                    print ("month30")
-                else:
-                    print ("Error: wrong day entered")
-            elif month == month28:
-                leap = year % 4
-                leap2 = year % 400
-                if leap == 0 or leap2 == 0:
-                    if day >=1 and day <=29:
+                    print ("Error: wrong month entered")
+            else:
+                if monthint > 0 and monthint <=12:
+                    if monthint in month31:
+                        if dayint >=1 and dayint <=31:
+                            print ("month31")
+                        else:
+                            print ("Error: wrong day entered")
+                    elif monthint in month30:
+                        if dayint >=1 and dayint <=30:
+                            print ("month30")
+                        else:
+                            print ("Error: wrong day entered")
+                    elif monthint == 2:
+                        if dayint >=1 and dayint <=28:
+                            print ("Not a leap year")
+                        else:
+                            print ("Error: wrong day entered")
+                    else:
+                        print ("Error: wrong month entered")
+        else:
+            if monthint > 0 and monthint <=12:
+                if monthint in month31:
+                    if dayint >=1 and dayint <=31:
+                        print ("month31")
+                    else:
+                        print ("Error: wrong day entered")
+                elif monthint in month30:
+                    if dayint >=1 and dayint <=30:
+                        print ("month30")
+                    else:
+                        print ("Error: wrong day entered")
+                elif month == 2:
+                    if dayint >=1 and dayint <=29:
                         print ("leap year")
                     else:
                         print ("Error: wrong day entered")
-                else:
-                    if day >=1 and day <=29:
-                        print ("Not a leap year")
-                    else:
-                        print ("Error: wrong day entered")
+            else:
+                print ("Error: wrong month entered")
     else:
-        print ("Error: wrong month entered")
-    
+        if monthint > 0 and monthint <=12:
+            if monthint in month31:
+                if dayint >=1 and dayint <=31:
+                    print ("month31")
+                else:
+                    print ("Error: wrong day entered")
+            elif monthint in month30:
+                if dayint >=1 and dayint <=30:
+                    print ("month30")
+                else:
+                    print ("Error: wrong day entered")
+            elif monthint == 2:
+                if dayint >=1 and dayint <=28:
+                    print ("Not a leap year")
+                else:
+                    print ("Error: wrong day entered")
+        else:
+            print ("Error: wrong month entered")
 
 # First part of the code that runs. 
 # It goes through an exception checking
@@ -122,3 +181,5 @@ if __name__ == "__main__":
                 print(showusage())
         except ValueError:
             print (showusage())
+    else:
+        print (showusage())
