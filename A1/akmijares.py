@@ -14,7 +14,7 @@
 #Imports the sys and os modules
 import sys, os
 
-# showusage function
+# usage function
 # Shows the user how they should use the program properly
 def usage():
     return "Usage: akmijares.py [--step] YYYYMMDD +/-n"
@@ -42,7 +42,7 @@ def checknums(datearg, numarg):
         validdate(int(datearg), numarg)
 
     else:
-        print(showusage())
+        print(usage())
 
 # showmonth function
 # If error has occured, it prints this
@@ -200,12 +200,12 @@ def validdate(datecheck, numint):
 # It goes through an exception checking
 # whether or not its ran properly or not
 # If the arguments were not given properly
-# it calls the showusage function
+# it calls the usage function
 # Otherwise it goes through a bunch of 
 # if/elif/else statements
 # to see if the arguments are right
 # If it is, it calls the function
-# If not, it calls the showusage function
+# If not, it calls the usage function
 if __name__ == "__main__":
     if len(sys.argv) == 3:
         try:
@@ -213,7 +213,7 @@ if __name__ == "__main__":
             number = int(sys.argv[2])
             checknums(date, number)
         except ValueError: 
-            print(showusage())
+            print(usage())
     elif len(sys.argv) == 4:
         try:
             steparg = str(sys.argv[1])
@@ -222,8 +222,8 @@ if __name__ == "__main__":
             if steparg == "--step":
                 print ('test')
             else:
-                print(showusage())
+                print(usage())
         except ValueError:
-            print (showusage())
+            print (usage())
     else:
-        print (showusage())
+        print (usage())
