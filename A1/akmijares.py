@@ -16,7 +16,7 @@ import sys, os
 
 # showusage function
 # Shows the user how they should use the program properly
-def showusage():
+def usage():
     return "Usage: akmijares.py [--step] YYYYMMDD +/-n"
 
 # aftertoday function
