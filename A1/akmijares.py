@@ -22,6 +22,11 @@ def usage():
 # aftertoday function
 # Adds number of days after date
 def aftertoday(datevar, numtoadd, leapcheck):
+    if leapcheck == True:
+        feb = 29
+    elif leapcheck == False:
+        feb = 28
+    month_maximum = {1:31, 2:feb, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
     afterdate = datevar + numtoadd
     print (afterdate)
 
@@ -29,7 +34,7 @@ def aftertoday(datevar, numtoadd, leapcheck):
 # Subtracts number of days before date
 # Also converts negative integer to positive
 # before subtracting
-def beforetoday(datevar2, numtosub):
+def beforetoday(datevar2, numtosub, leapcheck2):
     positive= abs(numtosub)
     beforedate = datevar2 - positive
     print (beforedate)
