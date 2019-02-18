@@ -61,8 +61,6 @@ def validdate(datecheck):
     monthint = int(month)
     dayint = int(day)
     
-    
-    
 
 # First part of the code that runs. 
 # It goes through an exception checking
