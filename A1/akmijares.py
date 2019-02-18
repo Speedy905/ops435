@@ -58,8 +58,33 @@ def aftertoday(datevar, numtoadd, leapcheck):
 # Also converts negative integer to positive
 # before subtracting
 def beforetoday(datevar2, numtosub, leapcheck2):
+    if leapcheck2 == True:
+        feb = 29
+    elif leapcheck2 == False:
+        feb = 28
+    month_maximum2 = {1:31, 2:feb, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
+    
+    datevarstring2 = str(datevar2)
+    currentyear2 = int(datevarstring2[0:4])
+    currentmonth2 = int(datevarstring2[4:6])
+    currentday2 = int(datevarstring2[6:])
     positive= abs(numtosub)
-    beforedate = datevar2 - positive
+    beforeday = datevar2 - positive
+    
+    if beforeday > month_maximum2[currentmonth2]:
+        before_day = beforeday % month_maximum2[currentmonth2]
+        beforemonth = currentmonth2 - 1
+    else:
+        before_day = beforeday
+        beforemonth = currentmonth2 + 1
+        
+    if beforemonth < 1:
+        resetmonth2 = 1
+        currentyear2 = currentyear2 - 1
+    else:
+        resetmonth2 = beforemonth + 0
+        
+    beforedate = str(currentyear2)+str(resetmonth2).zfill(2)+str(before_day).zfill(2)
     print (beforedate)
 
 # checknums function
@@ -186,7 +211,7 @@ def validdate(datecheck, numint):
                         if numint > 0:
                             aftertoday(datecheck, numint, leap_year)
                         elif numint < 0:
-                            beforetoday(datecheck, numint)
+                            beforetoday(datecheck, numint, leap_year)
                     else:
                         print (showday())
                 elif monthint == 2:
@@ -207,7 +232,7 @@ def validdate(datecheck, numint):
                     if numint > 0:
                         aftertoday(datecheck, numint, leap_year)
                     elif numint < 0:
-                        beforetoday(datecheck, numint)
+                        beforetoday(datecheck, numint, leap_year)
                 else:
                     print (showday())
             elif monthint in month30:
