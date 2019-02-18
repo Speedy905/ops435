@@ -27,7 +27,27 @@ def aftertoday(datevar, numtoadd, leapcheck):
     elif leapcheck == False:
         feb = 28
     month_maximum = {1:31, 2:feb, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
-    afterdate = datevar + numtoadd
+    
+    datevarstring = str(datevar)
+    currentyear = int(datevarstring[0:4])
+    currentmonth = int(datevarstring[4:6])
+    currentday = int(datevarstring[6:])
+    afterday = currentday + numtoadd
+    
+    if afterday > month_maximum[currentmonth]:
+        after_day = afterday % month_maximum[currentmonth]
+        aftermonth = currentmonth + 1
+    else:
+        after_day = afterday
+        aftermonth = currentmonth + 1
+        
+    if aftermonth > 12:
+        resetmonth = 1
+        currentyear = currentyear + 1
+    else:
+        resetmonth = aftermonth + 0
+        
+    afterdate = str(currentyear)+str(resetmonth).zfill(2)+str(after_day).zfill(2)
     print (afterdate)
 
 # beforetoday function
@@ -192,7 +212,7 @@ def validdate(datecheck, numint):
                     if numint > 0:
                         aftertoday(datecheck, numint, leap_year)
                     elif numint < 0:
-                        beforetoday(datecheck, numint)
+                        beforetoday(datecheck, numint, leap_year)
                 else:
                     print (showday())
             elif monthint == 2:
