@@ -86,7 +86,7 @@ def validdate(datecheck):
                             print ("month30")
                         else:
                             print ("Error: wrong day entered")
-                    elif month == 2:
+                    elif monthint == 2:
                         if dayint >=1 and dayint <=29:
                             print ("leap year")
                         else:
@@ -124,7 +124,7 @@ def validdate(datecheck):
                         print ("month30")
                     else:
                         print ("Error: wrong day entered")
-                elif month == 2:
+                elif monthint == 2:
                     if dayint >=1 and dayint <=29:
                         print ("leap year")
                     else:
