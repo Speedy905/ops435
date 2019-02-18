@@ -39,9 +39,12 @@ def beforetoday(datevar2, numtosub):
 def checknums(datearg, numarg):
     if len(str(datearg)) == 8:
         if numarg > 0:
-            print(aftertoday(int(datearg), numarg))
+            validdate(int(datearg))
+            #print(aftertoday(int(datearg), numarg))
         elif numarg <= 0:
-            print(beforetoday(int(datearg), numarg))
+            #print(beforetoday(int(datearg), numarg))
+            validdate(int(datearg))
+
     else:
         print(showusage())
 
@@ -52,14 +55,41 @@ def checknums(datearg, numarg):
 # If in range, considered valid date
 # If not, prints out error message. 
 def validdate(datecheck):
+    month31 = [01,03,05,07,08,10,12]
+    month30 = [04,06,09,11]
+    month28 = 02
+    
     datestring= str(datecheck)
     year = datestring[0:4]
     month = datestring[4:6]
-    day = datestring[6:8]
+    day = datestring[6:]
     
-    yearint = int(year)
-    monthint = int(month)
-    dayint = int(day)
+    if month > 0 and month <=12:
+            if month in month31:
+                if day >=1 and day <=31:
+                    print ("month31")
+                else:
+                    print ("Error: wrong day entered")
+            elif month in month30:
+                if day >=1 and day <=30:
+                    print ("month30")
+                else:
+                    print ("Error: wrong day entered")
+            elif month == month28:
+                leap = year % 4
+                leap2 = year % 400
+                if leap == 0 or leap2 == 0:
+                    if day >=1 and day <=29:
+                        print ("leap year")
+                    else:
+                        print ("Error: wrong day entered")
+                else:
+                    if day >=1 and day <=29:
+                        print ("Not a leap year")
+                    else:
+                        print ("Error: wrong day entered")
+    else:
+        print ("Error: wrong month entered")
     
 
 # First part of the code that runs. 
