@@ -21,7 +21,7 @@ def usage():
 
 # aftertoday function
 # Adds number of days after date
-def aftertoday(datevar, numtoadd):
+def aftertoday(datevar, numtoadd, leapcheck):
     afterdate = datevar + numtoadd
     print (afterdate)
 
@@ -84,75 +84,79 @@ def validdate(datecheck, numint):
     if leap == 0:
         if leap2 == 0:
             if leap3 == 0:
+                leap_year = True
                 if monthint > 0 and monthint <=12:
                     if monthint in month31:
                         if dayint >=1 and dayint <=31:
                             if numint > 0:
-                                aftertoday(datecheck, numint)
+                                aftertoday(datecheck, numint, leap_year)
                             elif numint < 0:
-                                beforetoday(datecheck, numint)
+                                beforetoday(datecheck, numint, leap_year)
                         else:
                             print (showday())
                     elif monthint in month30:
                         if dayint >=1 and dayint <=30:
                             if numint > 0:
-                                aftertoday(datecheck, numint)
+                                aftertoday(datecheck, numint, leap_year)
                             elif numint < 0:
-                                beforetoday(datecheck, numint)
+                                beforetoday(datecheck, numint, leap_year)
                         else:
                             print (showday())
                     elif monthint == 2:
                         if dayint >=1 and dayint <=29:
+                            leap_year = True
                             if numint > 0:
-                                aftertoday(datecheck, numint)
+                                aftertoday(datecheck, numint, leap_year)
                             elif numint < 0:
-                                beforetoday(datecheck, numint)
+                                beforetoday(datecheck, numint, leap_year)
                         else:
                             print (showday())
                 else:
                     print (showmonth())
             else:
+                leap_year = False
                 if monthint > 0 and monthint <=12:
                     if monthint in month31:
                         if dayint >=1 and dayint <=31:
                             if numint > 0:
-                                aftertoday(datecheck, numint)
+                                aftertoday(datecheck, numint, leap_year)
                             elif numint < 0:
-                                beforetoday(datecheck, numint)
+                                beforetoday(datecheck, numint, leap_year)
                         else:
                             print (showday())
                     elif monthint in month30:
                         if dayint >=1 and dayint <=30:
                             if numint > 0:
-                                aftertoday(datecheck, numint)
+                                aftertoday(datecheck, numint, leap_year)
                             elif numint < 0:
-                                beforetoday(datecheck, numint)
+                                beforetoday(datecheck, numint, leap_year)
                         else:
                             print (showday())
                     elif monthint == 2:
                         if dayint >=1 and dayint <=28:
                             if numint > 0:
-                                aftertoday(datecheck, numint)
+                                aftertoday(datecheck, numint, leap_year)
                             elif numint < 0:
-                                beforetoday(datecheck, numint)
+                                beforetoday(datecheck, numint, leap_year)
                         else:
                             print (showday())
                     else:
                         print (showmonth())
         else:
+            leap_year = True
             if monthint > 0 and monthint <=12:
                 if monthint in month31:
                     if dayint >=1 and dayint <=31:
                         if numint > 0:
-                            aftertoday(datecheck, numint)
+                            aftertoday(datecheck, numint, leap_year)
                         elif numint < 0:
-                            beforetoday(datecheck, numint)
+                            beforetoday(datecheck, numint, leap_year)
                     else:
                         print (showday())
                 elif monthint in month30:
                     if dayint >=1 and dayint <=30:
                         if numint > 0:
-                            aftertoday(datecheck, numint)
+                            aftertoday(datecheck, numint, leap_year)
                         elif numint < 0:
                             beforetoday(datecheck, numint)
                     else:
@@ -160,19 +164,20 @@ def validdate(datecheck, numint):
                 elif monthint == 2:
                     if dayint >=1 and dayint <=29:
                         if numint > 0:
-                            aftertoday(datecheck, numint)
+                            aftertoday(datecheck, numint, leap_year)
                         elif numint < 0:
-                            beforetoday(datecheck, numint)
+                            beforetoday(datecheck, numint, leap_year)
                     else:
                         print (showday())
             else:
                 print (showmonth())
     else:
+        leap_year = False
         if monthint > 0 and monthint <=12:
             if monthint in month31:
                 if dayint >=1 and dayint <=31:
                     if numint > 0:
-                        aftertoday(datecheck, numint)
+                        aftertoday(datecheck, numint, leap_year)
                     elif numint < 0:
                         beforetoday(datecheck, numint)
                 else:
@@ -180,7 +185,7 @@ def validdate(datecheck, numint):
             elif monthint in month30:
                 if dayint >=1 and dayint <=30:
                     if numint > 0:
-                        aftertoday(datecheck, numint)
+                        aftertoday(datecheck, numint, leap_year)
                     elif numint < 0:
                         beforetoday(datecheck, numint)
                 else:
@@ -188,9 +193,9 @@ def validdate(datecheck, numint):
             elif monthint == 2:
                 if dayint >=1 and dayint <=28:
                     if numint > 0:
-                        aftertoday(datecheck, numint)
+                        aftertoday(datecheck, numint, leap_year)
                     elif numint < 0:
-                        beforetoday(datecheck, numint)
+                        beforetoday(datecheck, numint, leap_year)
                 else:
                     print (showday())
         else:
