@@ -23,7 +23,7 @@ def showusage():
 # Adds number of days after date
 def aftertoday(datevar, numtoadd):
     afterdate = datevar + numtoadd
-    return afterdate
+    print (afterdate)
 
 # beforetoday function
 # Subtracts number of days before date
@@ -32,21 +32,27 @@ def aftertoday(datevar, numtoadd):
 def beforetoday(datevar2, numtosub):
     positive= abs(numtosub)
     beforedate = datevar2 - positive
-    return beforedate
+    print (beforedate)
 
+# checknums function
 # Checks if the arguments given are proper
 # If they are, it calls the functions
 def checknums(datearg, numarg):
     if len(str(datearg)) == 8:
-        if numarg > 0:
-            validdate(int(datearg))
-            #print(aftertoday(int(datearg), numarg))
-        elif numarg <= 0:
-            #print(beforetoday(int(datearg), numarg))
-            validdate(int(datearg))
+        validdate(int(datearg), numarg)
 
     else:
         print(showusage())
+
+# showmonth function
+# If error has occured, it prints this
+def showmonth():
+    return "Error: wrong month entered"
+
+# showday function
+# If error has occured, it prints this
+def showday():
+    return "Error: wrong day entered"
 
 # validdate function
 # Converts date to string, so it can be
@@ -54,7 +60,7 @@ def checknums(datearg, numarg):
 # if numbers are in range. 
 # If in range, considered valid date
 # If not, prints out error message. 
-def validdate(datecheck):
+def validdate(datecheck, numint):
     month31 = [1, 3, 5, 7, 8, 10, 12]
     month30 = [4,6,9,11]
     
@@ -72,84 +78,123 @@ def validdate(datecheck):
     leap2 = yearint % 100
     leap3 = yearint % 400
     
+    # Big if statements
+    # Checks the date
+    # Regardless if leap year or not
     if leap == 0:
         if leap2 == 0:
             if leap3 == 0:
                 if monthint > 0 and monthint <=12:
                     if monthint in month31:
                         if dayint >=1 and dayint <=31:
-                            print ("month31")
+                            if numint > 0:
+                                aftertoday(datecheck, numint)
+                            elif numint < 0:
+                                beforetoday(datecheck, numint)
                         else:
-                            print ("Error: wrong day entered")
+                            print (showday())
                     elif monthint in month30:
                         if dayint >=1 and dayint <=30:
-                            print ("month30")
+                            if numint > 0:
+                                aftertoday(datecheck, numint)
+                            elif numint < 0:
+                                beforetoday(datecheck, numint)
                         else:
-                            print ("Error: wrong day entered")
+                            print (showday())
                     elif monthint == 2:
                         if dayint >=1 and dayint <=29:
-                            print ("leap year")
+                            if numint > 0:
+                                aftertoday(datecheck, numint)
+                            elif numint < 0:
+                                beforetoday(datecheck, numint)
                         else:
-                            print ("Error: wrong day entered")
+                            print (showday())
                 else:
-                    print ("Error: wrong month entered")
+                    print (showmonth())
             else:
                 if monthint > 0 and monthint <=12:
                     if monthint in month31:
                         if dayint >=1 and dayint <=31:
-                            print ("month31")
+                            if numint > 0:
+                                aftertoday(datecheck, numint)
+                            elif numint < 0:
+                                beforetoday(datecheck, numint)
                         else:
-                            print ("Error: wrong day entered")
+                            print (showday())
                     elif monthint in month30:
                         if dayint >=1 and dayint <=30:
-                            print ("month30")
+                            if numint > 0:
+                                aftertoday(datecheck, numint)
+                            elif numint < 0:
+                                beforetoday(datecheck, numint)
                         else:
-                            print ("Error: wrong day entered")
+                            print (showday())
                     elif monthint == 2:
                         if dayint >=1 and dayint <=28:
-                            print ("Not a leap year")
+                            if numint > 0:
+                                aftertoday(datecheck, numint)
+                            elif numint < 0:
+                                beforetoday(datecheck, numint)
                         else:
-                            print ("Error: wrong day entered")
+                            print (showday())
                     else:
-                        print ("Error: wrong month entered")
+                        print (showmonth())
         else:
             if monthint > 0 and monthint <=12:
                 if monthint in month31:
                     if dayint >=1 and dayint <=31:
-                        print ("month31")
+                        if numint > 0:
+                            aftertoday(datecheck, numint)
+                        elif numint < 0:
+                            beforetoday(datecheck, numint)
                     else:
-                        print ("Error: wrong day entered")
+                        print (showday())
                 elif monthint in month30:
                     if dayint >=1 and dayint <=30:
-                        print ("month30")
+                        if numint > 0:
+                            aftertoday(datecheck, numint)
+                        elif numint < 0:
+                            beforetoday(datecheck, numint)
                     else:
-                        print ("Error: wrong day entered")
+                        print (showday())
                 elif monthint == 2:
                     if dayint >=1 and dayint <=29:
-                        print ("leap year")
+                        if numint > 0:
+                            aftertoday(datecheck, numint)
+                        elif numint < 0:
+                            beforetoday(datecheck, numint)
                     else:
-                        print ("Error: wrong day entered")
+                        print (showday())
             else:
-                print ("Error: wrong month entered")
+                print (showmonth())
     else:
         if monthint > 0 and monthint <=12:
             if monthint in month31:
                 if dayint >=1 and dayint <=31:
-                    print ("month31")
+                    if numint > 0:
+                        aftertoday(datecheck, numint)
+                    elif numint < 0:
+                        beforetoday(datecheck, numint)
                 else:
-                    print ("Error: wrong day entered")
+                    print (showday())
             elif monthint in month30:
                 if dayint >=1 and dayint <=30:
-                    print ("month30")
+                    if numint > 0:
+                        aftertoday(datecheck, numint)
+                    elif numint < 0:
+                        beforetoday(datecheck, numint)
                 else:
-                    print ("Error: wrong day entered")
+                    print (showday())
             elif monthint == 2:
                 if dayint >=1 and dayint <=28:
-                    print ("Not a leap year")
+                    if numint > 0:
+                        aftertoday(datecheck, numint)
+                    elif numint < 0:
+                        beforetoday(datecheck, numint)
                 else:
-                    print ("Error: wrong day entered")
+                    print (showday())
         else:
-            print ("Error: wrong month entered")
+            print (showmonth())
 
 # First part of the code that runs. 
 # It goes through an exception checking
@@ -166,8 +211,7 @@ if __name__ == "__main__":
         try:
             date = int(sys.argv[1])
             number = int(sys.argv[2])
-            #checknums(date, number)
-            validdate(date)
+            checknums(date, number)
         except ValueError: 
             print(showusage())
     elif len(sys.argv) == 4:
