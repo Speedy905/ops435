@@ -3,8 +3,10 @@
 # OPS435 Assignment 1 - Winter 2019
 # Program: akmijares.py (replace student_id with your Seneca User name)
 # Author: "Antonio Karlo Mijares"
-# The python code in this file (akmijares.py) is original work written by
-# Antonio Karlo Mijares. No code in this file is copied from any other source 
+# The python code in this file (akmijares.py) is original work written 
+# by
+# Antonio Karlo Mijares. No code in this file is copied from any other 
+# source 
 # except those provided by the course instructor, including any person, 
 # textbook, or on-line resource. I have not shared this python script 
 # with anyone or anything except for submission for grading.  
@@ -19,299 +21,6 @@ import sys, os
 def usage():
     return "Usage: akmijares.py [--step] YYYYMMDD +/-n"
 
-# tomorrow function
-# Adds number of days after date
-# If adding the day goes to the new month/year
-# It Changes so that, it'll also change to the next
-# month or year
-def tomorrow(datevar, numtoadd, leapcheck):
-    if leapcheck == True:
-        feb = 29
-    elif leapcheck == False:
-        feb = 28
-    month_maximum = {1:31, 2:feb, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
-    
-    datevarstring = str(datevar)
-    currentyear = int(datevarstring[0:4])
-    currentmonth = int(datevarstring[4:6])
-    currentday = int(datevarstring[6:])
-    #stepvar = int(datevar) + 1
-    afterday = currentday + numtoadd
-    
-    # Checks how many months to add
-    if afterday > month_maximum[currentmonth]:
-        after_day = afterday % month_maximum[currentmonth]
-        aftermonth = 0
-        if numtoadd >=30 and numtoadd < 60:
-            aftermonth = currentmonth + 1
-        elif numtoadd >=60 and numtoadd < 90:
-            aftermonth = currentmonth + 2
-        elif numtoadd >=90 and numtoadd < 120:
-            aftermonth = currentmonth + 3
-        elif numtoadd >=120 and numtoadd < 150:
-            aftermonth = currentmonth + 4
-        elif numtoadd >=150 and numtoadd < 180:
-            aftermonth = currentmonth + 5
-        elif numtoadd >=180 and numtoadd < 210:
-            aftermonth = currentmonth + 6
-        elif numtoadd >=210 and numtoadd < 240:
-            aftermonth = currentmonth + 7
-        elif numtoadd >=240 and numtoadd < 270:
-            aftermonth = currentmonth + 8
-        elif numtoadd >=270 and numtoadd < 300:
-            aftermonth = currentmonth + 9
-        elif numtoadd >=300 and numtoadd < 330:
-            aftermonth = currentmonth + 10
-        elif numtoadd >=330 and numtoadd < 360:
-            aftermonth = currentmonth + 11
-        elif numtoadd >=360 and numtoadd <= 365:
-            aftermonth = currentmonth + 12
-    else:
-        after_day = afterday
-        aftermonth = currentmonth + 0
-        
-    if aftermonth > 12:
-        resetmonth = 1
-        currentyear = currentyear + 1
-    else:
-        resetmonth = aftermonth + 0
-        
-    afterdate = str(currentyear)+str(resetmonth).zfill(2)+str(after_day).zfill(2)
-    
-    #if stepcheck == True:
-     #   for x in 1:
-      #      print (stepvar)
-       #     if afterday == afterdate:
-        #        break
-    #else:
-    print (afterdate)
-
-# yesterday function
-# Subtracts number of days before date
-# Also converts negative integer to positive
-# before subtracting
-def yesterday(datevar2, numtosub, leapcheck2):
-    if leapcheck2 == True:
-        feb = 29
-    elif leapcheck2 == False:
-        feb = 28
-    month_maximum2 = {1:31, 2:feb, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
-    
-    datevarstring2 = str(datevar2)
-    currentyear2 = int(datevarstring2[0:4])
-    currentmonth2 = int(datevarstring2[4:6])
-    currentday2 = int(datevarstring2[6:])
-    positive= abs(numtosub)
-    beforeday = datevar2 - positive
-    
-    # Checks how many months to subtract
-    if beforeday > month_maximum2[currentmonth2]:
-        before_day = beforeday % month_maximum2[currentmonth2]
-        beforemonth = 0
-        if positive >=30 and positive < 60:
-            beforemonth = currentmonth2 - 1
-        elif positive >=60 and positive < 90:
-            beforemonth = currentmonth2 - 2
-        elif positive >=90 and positive < 120:
-            beforemonth = currentmonth2 - 3
-        elif positive >=120 and positive < 150:
-            beforemonth = currentmonth2 - 4
-        elif positive >=150 and positive < 180:
-            beforemonth = currentmonth2 - 5
-        elif positive >=180 and positive < 210:
-            beforemonth = currentmonth2 - 6
-        elif positive >=210 and positive < 240:
-            beforemonth = currentmonth2 - 7
-        elif positive >=240 and positive < 270:
-            beforemonth = currentmonth2 - 8
-        elif positive >=270 and positive < 300:
-            beforemonth = currentmonth2 - 9
-        elif positive >=300 and positive < 330:
-            beforemonth = currentmonth2 - 10
-        elif positive >=330 and positive < 360:
-            beforemonth = currentmonth2 - 11
-        elif positive >=360 and positive <= 365:
-            beforemonth = currentmonth2 - 12
-    else:
-        before_day = beforeday
-        beforemonth = currentmonth2 - 1
-        
-    if beforemonth <= 1:
-        resetmonth2 = 1
-        currentyear2 = currentyear2 - 1
-    else:
-        resetmonth2 = beforemonth + 0
-        
-    beforedate = str(currentyear2)+str(resetmonth2).zfill(2)+str(before_day).zfill(2)
-    print (beforedate)
-
-# checknums function
-# Checks if the arguments given are proper
-# If they are, it calls the functions
-def checknums(datearg, numarg):
-    if len(str(datearg)) == 8:
-        valid_date(int(datearg), numarg)
-
-    else:
-        print(usage())
-
-# showmonth function
-# If error has occured, it prints this
-def showmonth():
-    return "Error: wrong month entered"
-
-# showday function
-# If error has occured, it prints this
-def showday():
-    return "Error: wrong day entered"
-
-# validdate function
-# Converts date to string, so it can be
-# stripped, then it checks to see
-# if numbers are in range. 
-# If in range, considered valid date
-# If not, prints out error message. 
-def valid_date(datecheck, numint):
-    month31 = [1, 3, 5, 7, 8, 10, 12]
-    month30 = [4,6,9,11]
-    
-    datestring= str(datecheck)
-    year = datestring[0:4]
-    month = datestring[4:6]
-    day = datestring[6:]
-    
-    
-    yearint = int(year)
-    monthint = int(month)
-    dayint = int(day)
-    
-    leap = yearint % 4
-    leap2 = yearint % 100
-    leap3 = yearint % 400
-    
-    # Big if statements
-    # Checks the date
-    # Regardless if leap year or not
-    if leap == 0:
-        if leap2 == 0:
-            if leap3 == 0:
-                leap_year = True
-                if monthint > 0 and monthint <=12:
-                    if monthint in month31:
-                        if dayint >=1 and dayint <=31:
-                            if numint > 0:
-                                tomorrow(datecheck, numint, leap_year)
-                            elif numint < 0:
-                                yesterday(datecheck, numint, leap_year)
-                        else:
-                            print (showday())
-                    elif monthint in month30:
-                        if dayint >=1 and dayint <=30:
-                            if numint > 0:
-                                tomorrow(datecheck, numint, leap_year)
-                            elif numint < 0:
-                                yesterday(datecheck, numint, leap_year)
-                        else:
-                            print (showday())
-                    elif monthint == 2:
-                        if dayint >=1 and dayint <=29:
-                            leap_year = True
-                            if numint > 0:
-                                tomorrow(datecheck, numint, leap_year)
-                            elif numint < 0:
-                                yesterday(datecheck, numint, leap_year)
-                        else:
-                            print (showday())
-                else:
-                    print (showmonth())
-            else:
-                leap_year = False
-                if monthint > 0 and monthint <=12:
-                    if monthint in month31:
-                        if dayint >=1 and dayint <=31:
-                            if numint > 0:
-                                tomorrow(datecheck, numint, leap_year)
-                            elif numint < 0:
-                                yesterday(datecheck, numint, leap_year)
-                        else:
-                            print (showday())
-                    elif monthint in month30:
-                        if dayint >=1 and dayint <=30:
-                            if numint > 0:
-                                tomorrow(datecheck, numint, leap_year)
-                            elif numint < 0:
-                                yesterday(datecheck, numint, leap_year)
-                        else:
-                            print (showday())
-                    elif monthint == 2:
-                        if dayint >=1 and dayint <=28:
-                            if numint > 0:
-                                tomorrow(datecheck, numint, leap_year)
-                            elif numint < 0:
-                                yesterday(datecheck, numint, leap_year)
-                        else:
-                            print (showday())
-                    else:
-                        print (showmonth())
-        else:
-            leap_year = True
-            if monthint > 0 and monthint <=12:
-                if monthint in month31:
-                    if dayint >=1 and dayint <=31:
-                        if numint > 0:
-                            tomorrow(datecheck, numint, leap_year)
-                        elif numint < 0:
-                            yesterday(datecheck, numint, leap_year)
-                    else:
-                        print (showday())
-                elif monthint in month30:
-                    if dayint >=1 and dayint <=30:
-                        if numint > 0:
-                            tomorrow(datecheck, numint, leap_year)
-                        elif numint < 0:
-                            yesterday(datecheck, numint, leap_year)
-                    else:
-                        print (showday())
-                elif monthint == 2:
-                    if dayint >=1 and dayint <=29:
-                        if numint > 0:
-                            tomorrow(datecheck, numint, leap_year)
-                        elif numint < 0:
-                            yesterday(datecheck, numint, leap_year)
-                    else:
-                        print (showday())
-            else:
-                print (showmonth())
-    else:
-        leap_year = False
-        if monthint > 0 and monthint <=12:
-            if monthint in month31:
-                if dayint >=1 and dayint <=31:
-                    if numint > 0:
-                        tomorrow(datecheck, numint, leap_year)
-                    elif numint < 0:
-                        yesterday(datecheck, numint, leap_year)
-                else:
-                    print (showday())
-            elif monthint in month30:
-                if dayint >=1 and dayint <=30:
-                    if numint > 0:
-                        tomorrow(datecheck, numint, leap_year)
-                    elif numint < 0:
-                        yesterday(datecheck, numint, leap_year)
-                else:
-                    print (showday())
-            elif monthint == 2:
-                if dayint >=1 and dayint <=28:
-                    if numint > 0:
-                        tomorrow(datecheck, numint, leap_year)
-                    elif numint < 0:
-                        yesterday(datecheck, numint, leap_year)
-                else:
-                    print (showday())
-        else:
-            print (showmonth())
-
 # dbda function
 # It goes through an exception checking
 # whether or not its ran properly or not
@@ -323,12 +32,11 @@ def valid_date(datecheck, numint):
 # If it is, it calls the function
 # If not, it calls the usage function
 def dbda():
-    global stepcheck
     if len(sys.argv) == 3:
         try:
-            date = int(sys.argv[1])
-            number = int(sys.argv[2])
-            checknums(date, number)
+            date = sys.argv[1]
+            number = sys.argv[2]
+            tomorrow(date, number)
         except ValueError: 
             print(usage())
     elif len(sys.argv) == 4:
@@ -338,16 +46,109 @@ def dbda():
             number = int(sys.argv[3])
             if steparg == "--step":
                 stepcheck = True
-                checknums(date, number)
+                #checknums(date, number)
             else:
                 print(usage())
         except ValueError:
             print (usage())
     else:
         print (usage())
-
+        
+def leap_year(year):
+	leap = int(year)
+	if leap % 4 == 0:
+		return True 
+	elif leap % 100 == 0:
+		return False
+	elif leap % 400 == 0:
+		return True
+	else:
+		return False
+		
+# tomorrow function
+# Adds number of days after date
+# If adding the day goes to the new month/year
+# It Changes so that, it'll also change to the next
+# month or year
+def tomorrow(datevar): 
+	if len(datevar) != 8:
+		print(usage())
+	else:
+		year = int(datevar[0:4])
+		month = int(datevar[4:6])
+		day = int(datevar[6:])
+		mont_max = days_in_mon(year)
+		tmp_month = month
+		tmp_day = day + 1
+		
+		if tmp_day > mont_max[month]:
+			to_day = tmp_day % mont_max[month] 
+			tmp_month = tmp_month + 1
+		else:
+			to_day = tmp_day
+			tmp_month = month + 0
+		
+		if tmp_month > 12:
+			to_month = 1
+			year = year + 1
+		else:
+			to_month = tmp_month + 0
+			
+        afterdate = str(year)+str(to_month).zfill(2)+str(to_day).zfill(2)
+        
+        print(afterdate)
+        
+def days_in_mon(tempyear):
+	lpyear = tmp_year
+    if lpyear % 4 ==  0:
+        feb_max = 29
+    elif lpyear % 100 == 0:
+        feb_max = 28
+    elif lpyear % 400 == 0:
+        feb_max = 29 
+    else:
+        feb_max = 28 
+    leap_year(lpyear)
+    mon_max = {1:31, 2:feb_max, 3:31, 4:30, 5:31, 6:30, 
+	7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
+	
+    return mon_max
+    
+# validdate function
+# Converts date to string, so it can be
+# stripped, then it checks to see
+# if numbers are in range. 
+# If in range, considered valid date
+# If not, prints out error message. 
+def valid_date(datecheck):
+	year = int(today[0:4])
+    month = int(today[4:6])
+    day = int(today[6:])
+    tmp_day = day
+    tmp_month = month
+    days_month = days_in_mon(year)
+    if tmp_day > days_month[month]:
+        print(showday())
+        return False
+    elif tmp_month > days_month[month]:
+        return False
+    elif tmp_day > days_month[month]:
+        return False
+    else:
+        return True
+        
+# showmonth function
+# If error has occured, it prints this
+def showmonth():
+    return "Error: wrong month entered"
+    
+# showday function
+# If error has occured, it prints this
+def showday():
+    return "Error: wrong day entered"
+    
 # First part of the code that runs. 
 # Calls the dbda function
 if __name__ == "__main__":
-    stepcheck = False
-    dbda()
+	stepcheck = False
+	dbda()
