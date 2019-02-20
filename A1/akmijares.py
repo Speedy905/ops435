@@ -48,6 +48,24 @@ def tomorrow(datevar, numtoadd, leapcheck):
             aftermonth = currentmonth + 2
         elif numtoadd >=90 and numtoadd < 120:
             aftermonth = currentmonth + 3
+        elif numtoadd >=120 and numtoadd < 150:
+            aftermonth = currentmonth + 4
+        elif numtoadd >=150 and numtoadd < 180:
+            aftermonth = currentmonth + 5
+        elif numtoadd >=180 and numtoadd < 210:
+            aftermonth = currentmonth + 6
+        elif numtoadd >=210 and numtoadd < 240:
+            aftermonth = currentmonth + 7
+        elif numtoadd >=240 and numtoadd < 270:
+            aftermonth = currentmonth + 8
+        elif numtoadd >=270 and numtoadd < 300:
+            aftermonth = currentmonth + 9
+        elif numtoadd >=300 and numtoadd < 330:
+            aftermonth = currentmonth + 10
+        elif numtoadd >=330 and numtoadd < 360:
+            aftermonth = currentmonth + 11
+        elif numtoadd >=360 and numtoadd <= 365:
+            aftermonth = currentmonth + 12
     else:
         after_day = afterday
         aftermonth = currentmonth + 0
