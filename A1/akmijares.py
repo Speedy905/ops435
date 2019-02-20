@@ -35,14 +35,22 @@ def tomorrow(datevar, numtoadd, leapcheck):
     currentyear = int(datevarstring[0:4])
     currentmonth = int(datevarstring[4:6])
     currentday = int(datevarstring[6:])
+    #stepvar = int(datevar) + 1
     afterday = currentday + numtoadd
     
+    # Checks how many months to add
     if afterday > month_maximum[currentmonth]:
         after_day = afterday % month_maximum[currentmonth]
-        aftermonth = currentmonth + 1
+        aftermonth = 0
+        if numtoadd >=30 and numtoadd < 60:
+            aftermonth = currentmonth + 1
+        elif numtoadd >=60 and numtoadd < 90:
+            aftermonth = currentmonth + 2
+        elif numtoadd >=90 and numtoadd < 120:
+            aftermonth = currentmonth + 3
     else:
         after_day = afterday
-        aftermonth = currentmonth + 1
+        aftermonth = currentmonth + 0
         
     if aftermonth > 12:
         resetmonth = 1
@@ -51,6 +59,13 @@ def tomorrow(datevar, numtoadd, leapcheck):
         resetmonth = aftermonth + 0
         
     afterdate = str(currentyear)+str(resetmonth).zfill(2)+str(after_day).zfill(2)
+    
+    #if stepcheck == True:
+     #   for x in 1:
+      #      print (stepvar)
+       #     if afterday == afterdate:
+        #        break
+    #else:
     print (afterdate)
 
 # yesterday function
@@ -265,6 +280,7 @@ def valid_date(datecheck, numint):
 # If it is, it calls the function
 # If not, it calls the usage function
 def dbda():
+    global stepcheck
     if len(sys.argv) == 3:
         try:
             date = int(sys.argv[1])
@@ -278,7 +294,8 @@ def dbda():
             date = int(sys.argv[2])
             number = int(sys.argv[3])
             if steparg == "--step":
-                print ('test')
+                stepcheck = True
+                checknums(date, number)
             else:
                 print(usage())
         except ValueError:
@@ -289,4 +306,5 @@ def dbda():
 # First part of the code that runs. 
 # Calls the dbda function
 if __name__ == "__main__":
+    stepcheck = False
     dbda()
