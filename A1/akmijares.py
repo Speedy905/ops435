@@ -37,22 +37,26 @@ def usage():
 
 
 def dbda(date, days):
-    x = int(days)
-    tmp_date = date
-    vdate = valid_date(date)
-    if vdate == False:
-        sys.exit()
-    else:
-        while x != 0:   
-            if x > 0:        
-                tmp_date = tomorrow(tmp_date)
-                x = x - 1
-            else:
-                tmp_date = yesterday(tmp_date)
-                x = x + 1
-    docstring = usage()
-    target_day = tmp_date 
-    return target_day
+    error= usage()
+    try:
+        x = int(days)
+        tmp_date = date
+        vdate = valid_date(date)
+        if vdate == False:
+            sys.exit()
+        else:
+            while x != 0:   
+                if x > 0:        
+                    tmp_date = tomorrow(tmp_date)
+                    x = x - 1
+                else:
+                    tmp_date = yesterday(tmp_date)
+                    x = x + 1
+        error= usage()
+        target_day = tmp_date 
+        return target_day
+    except ValueError:
+        return error
 
 
 def leap_year(year):
@@ -73,7 +77,7 @@ def leap_year(year):
 # month or year
 def tomorrow(today):
     if len(today) != 8:
-       return 'Date not long enough try again'
+       print(usage())
     else:
         year = int(today[0:4])
         month = int(today[4:6])
@@ -103,7 +107,7 @@ def tomorrow(today):
 def yesterday(today):
         
     if len(today) != 8:
-       return 'Date not long enough try again'
+       print(usage())
     else:
         year = int(today[0:4])
         month = int(today[4:6])
@@ -158,25 +162,6 @@ def leap_year(lpyear):
     else:
         return False
 
-
-def valid_date(today):
-    
-    year = int(today[0:4])
-    month = int(today[4:6])
-    day = int(today[6:])
-    tmp_day = day
-    tmp_month = month
-    days_month = days_in_mon(year)
-    if tmp_day > days_month[month]:
-        print("That day dose not exist, try again")
-        return False
-    elif tmp_month > days_month[month]:
-        return False
-    elif tmp_day > days_month[month]:
-        return False
-    else:
-        return True
-
 # validdate function
 # Converts date to string, so it can be
 # stripped, then it checks to see
@@ -215,6 +200,9 @@ def showday():
 # First part of the code that runs.
 # Calls the dbda function
 if __name__ == "__main__":
-    d = sys.argv[1]
-    n = sys.argv[2]
-    print(dbda(d, n))
+    if len(sys.argv) == 3:
+        d = sys.argv[1]
+        n = sys.argv[2]
+        print(dbda(d, n))
+    else:
+        print((usage()))
