@@ -104,14 +104,39 @@ def yesterday(datevar2, numtosub, leapcheck2):
     positive= abs(numtosub)
     beforeday = datevar2 - positive
     
+    # Checks how many months to subtract
     if beforeday > month_maximum2[currentmonth2]:
         before_day = beforeday % month_maximum2[currentmonth2]
-        beforemonth = currentmonth2 - 1
+        beforemonth = 0
+        if positive >=30 and positive < 60:
+            beforemonth = currentmonth2 - 1
+        elif positive >=60 and positive < 90:
+            beforemonth = currentmonth2 - 2
+        elif positive >=90 and positive < 120:
+            beforemonth = currentmonth2 - 3
+        elif positive >=120 and positive < 150:
+            beforemonth = currentmonth2 - 4
+        elif positive >=150 and positive < 180:
+            beforemonth = currentmonth2 - 5
+        elif positive >=180 and positive < 210:
+            beforemonth = currentmonth2 - 6
+        elif positive >=210 and positive < 240:
+            beforemonth = currentmonth2 - 7
+        elif positive >=240 and positive < 270:
+            beforemonth = currentmonth2 - 8
+        elif positive >=270 and positive < 300:
+            beforemonth = currentmonth2 - 9
+        elif positive >=300 and positive < 330:
+            beforemonth = currentmonth2 - 10
+        elif positive >=330 and positive < 360:
+            beforemonth = currentmonth2 - 11
+        elif positive >=360 and positive <= 365:
+            beforemonth = currentmonth2 - 12
     else:
         before_day = beforeday
-        beforemonth = currentmonth2 + 1
+        beforemonth = currentmonth2 - 1
         
-    if beforemonth < 1:
+    if beforemonth <= 1:
         resetmonth2 = 1
         currentyear2 = currentyear2 - 1
     else:
