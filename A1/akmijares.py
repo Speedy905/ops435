@@ -30,7 +30,7 @@ def usage():
 # Otherwise it goes to a loop where it calls
 # Either the tomorrow, or the yesterday function
 def dbda(date, day):
-    error= usage()
+    error = usage()
     try:
         x = int(day)
         tmp_date = date
@@ -38,15 +38,15 @@ def dbda(date, day):
         if va_date == False:
             sys.exit()
         else:
-            while x != 0:   
-                if x > 0:        
+            while x != 0:
+                if x > 0:
                     tmp_date = tomorrow(tmp_date)
                     x = x - 1
                 else:
                     tmp_date = yesterday(tmp_date)
                     x = x + 1
-        error= usage()
-        target = tmp_date 
+        error = usage()
+        target = tmp_date
         return target
     except ValueError:
         return error
@@ -56,68 +56,77 @@ def dbda(date, day):
 # If adding the day goes to the new month/year
 # It adapts to the new month/year
 def tomorrow(today):
-    if len(today) != 8:
-       print(usage())
-    else:
-        year = int(today[0:4])
-        month = int(today[4:6])
-        day = int(today[6:])
-        mont_max = days_in_mon(year)
-     
-        tmp_month = month
-        tmp_day = day + 1 
-        if tmp_day > mont_max[month]:
-            to_day = tmp_day % mont_max[month] 
-            tmp_month = tmp_month + 1
-            
-        else:
-           to_day = tmp_day
-           tmp_month = month + 0
-      
-        if tmp_month > 12:
-            to_month = 1
-            year = year +  1
-        else:
-            to_month = tmp_month + 0
+    global steparg
+    year = int(today[0:4])
+    month = int(today[4:6])
+    day = int(today[6:])
+    mont_max = days_in_mon(year)
 
-        next_date = str(year)+str(to_month).zfill(2)+str(to_day).zfill(2)
-     
-        return next_date    
+    tmp_month = month
+    tmp_day = day + 1
+    if tmp_day > mont_max[month]:
+        to_day = tmp_day % mont_max[month]
+        tmp_month = tmp_month + 1
+
+    else:  
+        to_day = tmp_day
+        tmp_month = month + 0
+
+    if tmp_month > 12:
+        to_month = 1
+        year = year + 1
+    else:
+        to_month = tmp_month + 0
+
+    next_date = str(year) + str(to_month).zfill(2) + str(to_day).zfill(2)
+
+    if steparg == True:
+        print(next_date)
+        return next_date
+    else:
+        return next_date
+
 
 # yesterday function
 # Subtracts the number of days before date
 # If subtracting goes to an older month/year
 # It adapts to the new month/year
 def yesterday(current):
+    global steparg
     if len(current) != 8:
-       print(usage())
+        print(usage())
     else:
         currentyear = int(current[0:4])
         currentmonth = int(current[4:6])
         currentday = int(current[6:])
-        currentday_tmp = currentday - 1 
-    
+        currentday_tmp = currentday - 1
+
         month_max = days_in_mon(currentyear)
-       
+
         tmp_month = currentmonth
-        currentday_tmp = currentday - 1 
+        currentday_tmp = currentday - 1
 
         if currentday_tmp < 0:
-            to_day = currentday_tmp % month_max[currentmonth] 
+            to_day = currentday_tmp % month_max[currentmonth]
             tmp_month = tmp_month - 1
-            
+
         else:
-           to_day = currentday_tmp
-           tmp_month = currentmonth - 0
-        
+            to_day = currentday_tmp
+            tmp_month = currentmonth - 0
+
         if tmp_month < 1:
             to_month = 1
-            currentyear = currentyear -  1
+            currentyear = currentyear - 1
         else:
             to_month = tmp_month - 0
 
-        before_date = str(currentyear)+str(to_month).zfill(2)+str(to_day).zfill(2)
+        before_date = str(currentyear) + \
+            str(to_month).zfill(2) + str(to_day).zfill(2)
 
+    if steparg == True:
+        print(before_date)
+        return before_date
+    else:
         return before_date
 
 # days_in_mon function
@@ -125,28 +134,28 @@ def yesterday(current):
 # It also stores the max day in a tuple
 def days_in_mon(tmp_year):
     leapyear = tmp_year
-    if leapyear % 4 ==  0:
-        febmax = 29 
+    if leapyear % 4 == 0:
+        febmax = 29
     elif leapyear % 100 == 0:
-        febmax = 28 
+        febmax = 28
     elif leapyear % 400 == 0:
         febmax = 29
     else:
-        febmax = 28 
+        febmax = 28
 
     leap_year(leapyear)
-    month_max = {1:31, 2:febmax, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 
-    9:30, 10:31, 11:30, 12:31}
+    month_max = {1: 31, 2: febmax, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31,
+                 9: 30, 10: 31, 11: 30, 12: 31}
 
     return month_max
-    
+
 # leap_year function
 # Check if year is leapyear
 # If it is, returns as True
 # If not, returned as False
 def leap_year(leap):
     l_year = leap
-    if l_year % 4 ==  0:
+    if l_year % 4 == 0:
         return True
     elif l_year % 100 == 0:
         return False
@@ -157,7 +166,7 @@ def leap_year(leap):
 
 # validdate function
 # Strips the variable
-# Then runs through 
+# Then runs through
 # Statements to see if valid
 # If valid, returns as True
 # If not, prints an error.
@@ -195,6 +204,17 @@ if __name__ == "__main__":
     if len(sys.argv) == 3:
         d = sys.argv[1]
         n = sys.argv[2]
+        steparg = False
         print(dbda(d, n))
+    elif len(sys.argv) == 4:
+        s = sys.argv[1]
+        d = sys.argv[2]
+        n = sys.argv[3]
+        if s == "--step":
+            steparg = True
+            dbda(d, n)
+        else:
+            print(usage())
+
     else:
         print((usage()))
