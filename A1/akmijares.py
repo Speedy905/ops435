@@ -104,25 +104,36 @@ def yesterday(current):
 
         month_max = days_in_mon(currentyear)
 
-        tmp_month2 = currentmonth
-        currentday_tmp = currentday - 1
+        #tmp_month2 = currentmonth
+        #currentday_tmp = currentday - 1
 
-        if currentday_tmp < 0:
-            to_day = currentday_tmp % month_max[currentmonth]
-            tmp_month2 = tmp_month2 - 1
+        #if currentday_tmp < 0:
+         #   to_day2 = currentday_tmp % month_max[currentmonth]
+          #  tmp_month2 = tmp_month2 - 1
 
+        #else:
+         #   to_day2 = currentday_tmp
+          #  tmp_month2 = currentmonth - 0
+
+        if currentday_tmp <= 0:
+            if currentmonth-1 > 0:
+                to_day2 = month_max[currentmonth-1] + currentday_tmp
+                tmp_month2 = currentmonth - 1
+            else:
+                to_day2 = month_max[currentmonth-1]
+                tmp_month2 = currentmonth - 1
         else:
             to_day2 = currentday_tmp
-            tmp_month2 = currentmonth - 0
+            tmp_month2 = currentmonth + 0
 
-        if tmp_month2 < 1:
-            to_month2 = 1
+        before_date = str(currentyear) + \
+            str(tmp_month2).zfill(2) + str(to_day2).zfill(2)
+
+        if tmp_month2 < 0:
+            to_month2 = 12
             currentyear = currentyear - 1
         else:
             to_month2 = tmp_month2 - 0
-
-        before_date = str(currentyear) + \
-            str(to_month2).zfill(2) + str(to_day2).zfill(2)
 
     if steparg == True:
         print(before_date)
