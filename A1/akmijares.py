@@ -32,22 +32,22 @@ def usage():
 def dbda(date, day):
     error = usage()
     try:
-        x = int(day)
-        tmp_date = date
-        va_date = valid_date(date)
-        if va_date == False:
+        num = int(day)
+        tmpdate = date
+        valid = valid_date(date)
+        if valid == False:
             sys.exit()
         else:
-            while x != 0:
-                if x > 0:
-                    tmp_date = tomorrow(tmp_date)
-                    x = x - 1
+            while num != 0:
+                if num > 0:
+                    tmpdate = tomorrow(tmpdate)
+                    num = num - 1
                 else:
-                    tmp_date = yesterday(tmp_date)
-                    x = x + 1
+                    tmpdate = yesterday(tmpdate)
+                    num = num + 1
         error = usage()
-        target = tmp_date
-        return target
+        tar = tmpdate
+        return tar
     except ValueError:
         return error
 
@@ -55,30 +55,31 @@ def dbda(date, day):
 # Adds number of days after date
 # If adding the day goes to the new month/year
 # It adapts to the new month/year
-def tomorrow(today):
+def tomorrow(currentdate):
     global steparg
-    year = int(today[0:4])
-    month = int(today[4:6])
-    day = int(today[6:])
-    mont_max = days_in_mon(year)
+    currentyear = int(currentdate[0:4])
+    currentmonth = int(currentdate[4:6])
+    currentday = int(currentdate[6:])
+    maximum_in_month = days_in_mon(currentyear)
 
-    tmp_month = month
-    tmp_day = day + 1
-    if tmp_day > mont_max[month]:
-        to_day = tmp_day % mont_max[month]
-        tmp_month = tmp_month + 1
+    tmp_month1 = currentmonth
+    tmp_day1 = currentday + 1
+    if tmp_day1 > maximum_in_month[currentmonth]:
+        to_day1 = tmp_day1 % maximum_in_month[currentmonth]
+        tmp_month1 = tmp_month1 + 1
 
     else:  
-        to_day = tmp_day
-        tmp_month = month + 0
+        to_day1 = tmp_day1
+        tmp_month1 = currentmonth + 0
 
-    if tmp_month > 12:
-        to_month = 1
-        year = year + 1
+    if tmp_month1 > 12:
+        to_month1 = 1
+        currentyear = currentyear + 1
     else:
-        to_month = tmp_month + 0
+        to_month1 = tmp_month1 + 0
 
-    next_date = str(year) + str(to_month).zfill(2) + str(to_day).zfill(2)
+    next_date = str(currentyear) + \
+    str(to_month1).zfill(2) + str(to_day1).zfill(2)
 
     if steparg == True:
         print(next_date)
@@ -103,25 +104,25 @@ def yesterday(current):
 
         month_max = days_in_mon(currentyear)
 
-        tmp_month = currentmonth
+        tmp_month2 = currentmonth
         currentday_tmp = currentday - 1
 
         if currentday_tmp < 0:
             to_day = currentday_tmp % month_max[currentmonth]
-            tmp_month = tmp_month - 1
+            tmp_month2 = tmp_month2 - 1
 
         else:
-            to_day = currentday_tmp
-            tmp_month = currentmonth - 0
+            to_day2 = currentday_tmp
+            tmp_month2 = currentmonth - 0
 
-        if tmp_month < 1:
-            to_month = 1
+        if tmp_month2 < 1:
+            to_month2 = 1
             currentyear = currentyear - 1
         else:
-            to_month = tmp_month - 0
+            to_month2 = tmp_month2 - 0
 
         before_date = str(currentyear) + \
-            str(to_month).zfill(2) + str(to_day).zfill(2)
+            str(to_month2).zfill(2) + str(to_day2).zfill(2)
 
     if steparg == True:
         print(before_date)
