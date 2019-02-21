@@ -27,11 +27,8 @@ def usage():
 # whether or not its ran properly or not
 # If the arguments were not given properly
 # it calls the usage function
-# Otherwise it goes through a bunch of
-# if/elif/else statements
-# to see if the arguments are right
-# If it is, it calls the function
-# If not, it calls the usage function
+# Otherwise it goes to a loop where it calls
+# Either the tomorrow, or the yesterday function
 def dbda(date, days):
     error= usage()
     try:
@@ -54,23 +51,10 @@ def dbda(date, days):
     except ValueError:
         return error
 
-
-def leap_year(year):
-    leap_year = year
-    if leap_year % 4 ==  0:
-        return True
-    elif leap_year % 100 == 0:
-        return False
-    elif leap_year % 400 == 0:
-        return True
-    else:
-        return False
-
 # tomorrow function
 # Adds number of days after date
 # If adding the day goes to the new month/year
-# It Changes so that, it'll also change to the next
-# month or year
+# It adapts to the new month/year
 def tomorrow(today):
     if len(today) != 8:
        print(usage())
@@ -99,7 +83,10 @@ def tomorrow(today):
      
         return next_date    
 
-
+# yesterday function
+# Subtracts the number of days before date
+# If subtracting goes to an older month/year
+# It adapts to the new month/year
 def yesterday(today):
     if len(today) != 8:
        print(usage())
@@ -131,8 +118,10 @@ def yesterday(today):
 
         return before_date
 
+# days_in_mon function
+# While it also checks if it is a leap year
+# It also stores the max day in a tuple
 def days_in_mon(tmp_year):
-    
     lpyear = tmp_year
     if lpyear % 4 ==  0:
         feb_max = 29 
@@ -143,11 +132,14 @@ def days_in_mon(tmp_year):
     else:
         feb_max = 28 
     leap_year(lpyear)
-    mon_max = {1:31, 2:feb_max, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
-    #mon_min = {1:1, 2:1, 3:1, 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1}
+    mon_max = {1:31, 2:feb_max, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 
+    9:30, 10:31, 11:30, 12:31}
     return mon_max
     
-
+# leap_year function
+# Check if year is leapyear
+# If it is, returns as True
+# If not, returned as False
 def leap_year(lpyear):
     
     leap_year = lpyear
@@ -161,11 +153,11 @@ def leap_year(lpyear):
         return False
 
 # validdate function
-# Converts date to string, so it can be
-# stripped, then it checks to see
-# if numbers are in range.
-# If in range, considered valid date
-# If not, prints out error message.
+# Strips the variable
+# Then runs through 
+# Statements to see if valid
+# If valid, returns as True
+# If not, prints an error.
 def valid_date(today):
     
     year = int(today[0:4])
