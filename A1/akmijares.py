@@ -102,7 +102,7 @@ def yesterday(current):
         tmp_month = currentmonth
         currentday_tmp = currentday - 1 
 
-        if currentday_tmp < month_max[currentmonth]:
+        if currentday_tmp < 0:
             to_day = currentday_tmp % month_max[currentmonth] 
             tmp_month = tmp_month - 1
             
