@@ -19,8 +19,6 @@ import os
 
 # usage function
 # Shows the user how they should use the program properly
-
-
 def usage():
     return "Usage: akmijares.py [--step] YYYYMMDD +/-n"
 
@@ -34,8 +32,6 @@ def usage():
 # to see if the arguments are right
 # If it is, it calls the function
 # If not, it calls the usage function
-
-
 def dbda(date, days):
     error= usage()
     try:
@@ -105,7 +101,6 @@ def tomorrow(today):
 
 
 def yesterday(today):
-        
     if len(today) != 8:
        print(usage())
     else:
@@ -116,23 +111,25 @@ def yesterday(today):
     
         month_max = days_in_mon(year)
        
-        if tmp_day < 1:
-            tmp_month = month - 1
-            if tmp_month <= 0:
-                tmp_month = 12
-                year = year - 1
-                to_day = month_max[tmp_month]
-
-            else:
-                to_month = tmp_month - 0
- 
+        tmp_month = month
+        tmp_day = day - 1 
+        if tmp_day < month_max[month]:
+            to_day = tmp_day % month_max[month] 
+            tmp_month = tmp_month - 1
+            
         else:
-            to_day = tmp_day
-            tmp_month = month - 0
+           to_day = tmp_day
+           tmp_month = month - 0
+        
+        if tmp_month < 1:
+            to_month = 1
+            year = year -  1
+        else:
+            to_month = tmp_month - 0
 
-        prevoius_date = str(year)+str(to_month).zfill(2)+str(to_day).zfill(2)
+        before_date = str(year)+str(to_month).zfill(2)+str(to_day).zfill(2)
 
-        return prevoius_date
+        return before_date
 
 def days_in_mon(tmp_year):
     
@@ -147,6 +144,7 @@ def days_in_mon(tmp_year):
         feb_max = 28 
     leap_year(lpyear)
     mon_max = {1:31, 2:feb_max, 3:31, 4:30, 5:31, 6:30, 7:31, 8:31, 9:30, 10:31, 11:30, 12:31}
+    #mon_min = {1:1, 2:1, 3:1, 4:1, 5:1, 6:1, 7:1, 8:1, 9:1, 10:1, 11:1, 12:1}
     return mon_max
     
 
@@ -176,15 +174,15 @@ def valid_date(today):
     tmp_day = day
     tmp_month = month
     days_month = days_in_mon(year)
-    if tmp_day > days_month[month]:
-        print(showday())
-        return False
-    elif tmp_month > days_month[month]:
-        return False
-    elif tmp_day > days_month[month]:
+    if tmp_month > 12 or tmp_month < 1:
+        print(showmonth())
         return False
     else:
-        return True
+        if tmp_day > days_month[month]:
+            print(showday())
+            return False
+        else:
+            return True
 
 # showmonth function
 # If error has occured, it prints this
