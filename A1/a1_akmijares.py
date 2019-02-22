@@ -18,7 +18,14 @@ import sys
 # usage function
 # Shows the user how they should use the program properly
 def usage():
-    return "Usage: akmijares.py [--step] YYYYMMDD +/-n"
+    '''
+    Help on function usage in module a1_akmijares:
+
+    leap_year() prints out an error message if an error has occured
+    e.g. usage() -> 'Usage: a1_akmijares [--step] YYYYMMD +/-n'
+    (END)
+    '''
+    return "Usage: a1_akmijares.py [--step] YYYYMMDD +/-n"
 
 # dbda function
 # It goes through an exception checking
@@ -28,6 +35,18 @@ def usage():
 # Otherwise it goes to a loop where it calls
 # Either the tomorrow, or the yesterday function
 def dbda(date, day):
+    """
+    Help on function dbda in module a1_akmijares:
+
+    dbda(date, day) -> str/int
+    dbda(date, day) takes YYYYMMDD and a positive or negative interger to 
+    call the other functions in order to do the
+    calculations, while also calling valid_date to determine if the date
+    is valid or not.
+    e.g. dbda(20190320, 5) -> 20190325
+         dbda(20190320, -5) -> 20190315
+    (END)
+    """
     error = usage()
     if len(date) != 8:
         return "Error: wrong date entered"
@@ -57,6 +76,17 @@ def dbda(date, day):
 # If adding the day goes to the new month/year
 # It adapts to the new month/year
 def tomorrow(currentdate):
+    """
+    Help on function tomorrow in module akmijares:
+
+    tomorrow(today) -> str
+    tomorrow() takes a valid date string in 'YYYYMMDD' format and return a 
+    date string for the next day in 'YYYYMMDD' format.
+    e.g. tomorrow('20171231') -> '20180101'
+         tomorrow('20180131') -> '20180201'
+         tomorrow('20180228') -> '20180301'
+    (END)
+    """
     # Declares the steparg variable global
     global steparg
     currentyear = int(currentdate[0:4])
@@ -100,6 +130,17 @@ def tomorrow(currentdate):
 # If subtracting goes to an older month/year
 # It adapts to the new month/year
 def yesterday(current):
+    """
+    Help on function yesterday in module akmijares:
+
+    yesteday(current) -> str
+    yesterday() takes a valid date string in 'YYYYMMDD' format and return a 
+    date string for the previous day in 'YYYYMMDD' format.
+    e.g. yesterday('20171231') -> '20171230'
+         yesterday('20180131') -> '20180130'
+         yesterday('20180228') -> '20180227'
+    (END)
+    """
     # Declares the steparg variable global
     global steparg
     currentyear = int(current[0:4])
@@ -118,16 +159,16 @@ def yesterday(current):
             to_day2 = month_max[tmp_month2]
             currentyear = currentyear - 1
         else:
-                # If calculation reaches the previous month, 
-                # Reset the day back to the maximim of the month
+            # If calculation reaches the previous month, 
+            # Reset the day back to the maximim of the month
             to_day2 = month_max[tmp_month2] 
     else:
         to_day2 = currentday_tmp
         tmp_month2 = currentmonth + 0
 
-        # If the calculation goes to a previous year,
-        # The month gets reset back to the max month of the year
-        # While also resetting the maximum day of the month
+    # If the calculation goes to a previous year,
+    # The month gets reset back to the max month of the year
+    # While also resetting the maximum day of the month
     if tmp_month2 == 0:
         to_month2 = 12
         currentyear = currentyear - 1
@@ -151,17 +192,25 @@ def yesterday(current):
 # While it also checks if it is a leap year
 # It also stores the max day in a tuple
 def days_in_mon(tmp_year):
-    leapyear = tmp_year
-    if leapyear % 4 == 0:
-        febmax = 29
-    elif leapyear % 100 == 0:
-        febmax = 28
-    elif leapyear % 400 == 0:
-        febmax = 29
-    else:
-        febmax = 28
+    """
+    Help on function days_in_mon in module a1_akmijares:
 
-    leap_year(leapyear)
+    days_in_mon(tmp_year) -> int
+    days_in_mon() takes the year and calls the 
+    leap_year function which will determine the , 
+    max number of days for February
+    e.g: days_in_mon(2016) -> 2:29
+         days_in_mon(2015) -> 2:28
+    (END)
+    """
+    leapyear = tmp_year
+    check = leap_year(leapyear)
+
+    if check == True:
+        febmax = 29
+    elif check == False:
+        febmax =28
+
     month_max = {1: 31, 2: febmax, 3: 31, 4: 30, 5: 31, 6: 30, 7: 31, 8: 31,
                  9: 30, 10: 31, 11: 30, 12: 31}
 
@@ -172,6 +221,16 @@ def days_in_mon(tmp_year):
 # If it is, returns as True
 # If not, returned as False
 def leap_year(leap):
+    """
+    Help on function leap_year in module a1_akmijares:
+
+    leap_year(leap) -> int
+    leap_year() determines if the year is a leap year
+    which will return as True or False
+    e.g: leap_year(2016) -> True
+         leap_year(2015) -> False
+    (END)
+    """
     l_year = leap
     if l_year % 4 == 0:
         return True
@@ -191,6 +250,17 @@ def leap_year(leap):
 # Print out the error
 # While elso returning a False Statement
 def valid_date(date):
+    """
+    Help on function valid_date in module a1_akmijares:
+
+    valid_date(date) -> str
+    valid_date() determines if the date given is a valid date
+    or not, which returns True or False (which also prints out a message)
+    e.g: valid_date(20170314) -> True
+         valid_date(20160231) -> False -> 'Error: wrong day entered'
+         valid_date(20181324) -> False -> 'Error: wrong month entered'
+    (END)
+    """
     y = int(date[0:4])
     m = int(date[4:6])
     d = int(date[6:])
