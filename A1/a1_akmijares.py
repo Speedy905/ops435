@@ -199,26 +199,14 @@ def valid_date(date):
     tmp_m = m
     days_in_month = days_in_mon(y)
     if tmp_m > 12 or tmp_m < 1:
-        print(showmonth())
+        print("Error: wrong month entered")
         return False
     else:
         if tmp_d > days_in_month[m]:
-            print(showday())
+            print("Error: wrong day entered")
             return False
         else:
             return True
-
-# showmonth function
-# If the month was entered wrong, it returns
-# This statement
-def showmonth():
-    return "Error: wrong month entered"
-
-# showday function
-# If the day was entered wrong, it returns
-# This statement
-def showday():
-    return "Error: wrong day entered"
 
 
 # First part of the code that runs.
