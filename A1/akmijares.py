@@ -13,9 +13,8 @@
 # I understand that the Academic Honesty Policy will be enforced and
 # violators will be reported and appropriate action will be taken.
 
-# Imports the sys and os modules
+# Imports the sys module
 import sys
-import os
 
 # usage function
 # Shows the user how they should use the program properly
@@ -56,15 +55,20 @@ def dbda(date, day):
 # If adding the day goes to the new month/year
 # It adapts to the new month/year
 def tomorrow(currentdate):
+    # Declares the steparg variable global
     global steparg
     currentyear = int(currentdate[0:4])
     currentmonth = int(currentdate[4:6])
     currentday = int(currentdate[6:])
     maximum_in_month = days_in_mon(currentyear)
 
+    
     tmp_month1 = currentmonth
     tmp_day1 = currentday + 1
+    # If the days go to a new month, it resets itself back to the start
+    # of the day, otherwise, nothing has been changed
     if tmp_day1 > maximum_in_month[currentmonth]:
+        # Resets day back to 01 if it goes to a new month
         to_day1 = tmp_day1 % maximum_in_month[currentmonth] 
         tmp_month1 = tmp_month1 + 1
 
@@ -78,9 +82,13 @@ def tomorrow(currentdate):
     else:
         to_month1 = tmp_month1 + 0
 
+    # Stores the stripped variables into a string
     next_date = str(currentyear) + \
     str(to_month1).zfill(2) + str(to_day1).zfill(2)
 
+    # If the steparg variable is True when the program was ran,
+    # It prints out all the days until the destination
+    # If False, it just returns the result
     if steparg == True:
         print(next_date)
         return next_date
@@ -93,6 +101,7 @@ def tomorrow(currentdate):
 # If subtracting goes to an older month/year
 # It adapts to the new month/year
 def yesterday(current):
+    # Declares the steparg variable global
     global steparg
     if len(current) != 8:
         print(usage())
@@ -101,30 +110,41 @@ def yesterday(current):
         currentmonth = int(current[4:6])
         currentday = int(current[6:])
         currentday_tmp = currentday - 1
-
         month_max = days_in_mon(currentyear)
 
         if currentday_tmp == 0:
+            # If the days go to a previous month, it resets itself 
+            # Back to the max day of the month
+            # Otherwise, nothing has changed
             tmp_month2 = currentmonth - 1
             if tmp_month2 == 0:
                 tmp_month2 = 12
                 to_day2 = month_max[tmp_month2]
                 currentyear = currentyear - 1
             else:
+                # If calculation reaches the previous month, 
+                # Reset the day back to the maximim of the month
                 to_day2 = month_max[tmp_month2] 
         else:
             to_day2 = currentday_tmp
             tmp_month2 = currentmonth + 0
 
+        # If the calculation goes to a previous year,
+        # The month gets reset back to the max month of the year
+        # While also resetting the maximum day of the month
         if tmp_month2 == 0:
             to_month2 = 12
             currentyear = currentyear - 1
         else:
             to_month2 = tmp_month2 + 0
 
+        # Stores the stripped variables into a string
         before_date = str(currentyear) + \
             str(to_month2).zfill(2) + str(to_day2).zfill(2)
 
+    # If the steparg variable is True when the program was ran,
+    # It prints out all the days until the destination
+    # If False, it just returns the result
     if steparg == True:
         print(before_date)
         return before_date
@@ -171,7 +191,9 @@ def leap_year(leap):
 # Then runs through
 # Statements to see if valid
 # If valid, returns as True
-# If not, prints an error.
+# If not, calls one of the functions to 
+# Print out the error
+# While elso returning a False Statement
 def valid_date(date):
     y = int(date[0:4])
     m = int(date[4:6])
@@ -190,18 +212,28 @@ def valid_date(date):
             return True
 
 # showmonth function
-# If error has occured, it prints this
+# If the month was entered wrong, it returns
+# This statement
 def showmonth():
     return "Error: wrong month entered"
 
 # showday function
-# If error has occured, it prints this
+# If the day was entered wrong, it returns
+# This statement
 def showday():
     return "Error: wrong day entered"
 
 
 # First part of the code that runs.
-# Calls the dbda function
+# It goes through if/elif/else statements to see
+# If the program was executed properly
+# If 2 arg were given (excluding the python file), 
+# It stores it into a variable, which calls the dbda function
+# If 3 arg were given (excluding the python file),
+# It also checks if the first argument was executed properly
+# If it is, it calls the dbda function
+# If the program was not executed properly, it calls the usage 
+# Function
 if __name__ == "__main__":
     if len(sys.argv) == 3:
         d = sys.argv[1]
@@ -217,6 +249,5 @@ if __name__ == "__main__":
             dbda(d, n)
         else:
             print(usage())
-
     else:
         print((usage()))
