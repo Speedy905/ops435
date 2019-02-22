@@ -57,43 +57,44 @@ def dbda(date, day):
 def tomorrow(currentdate):
     # Declares the steparg variable global
     global steparg
-    currentyear = int(currentdate[0:4])
-    currentmonth = int(currentdate[4:6])
-    currentday = int(currentdate[6:])
-    maximum_in_month = days_in_mon(currentyear)
-
     
-    tmp_month1 = currentmonth
-    tmp_day1 = currentday + 1
-    # If the days go to a new month, it resets itself back to the start
-    # of the day, otherwise, nothing has been changed
-    if tmp_day1 > maximum_in_month[currentmonth]:
-        # Resets day back to 01 if it goes to a new month
-        to_day1 = tmp_day1 % maximum_in_month[currentmonth] 
-        tmp_month1 = tmp_month1 + 1
-
-    else:  
-        to_day1 = tmp_day1
-        tmp_month1 = currentmonth + 0
-
-    if tmp_month1 > 12:
-        to_month1 = 1
-        currentyear = currentyear + 1
+    if len(currentdate) !=8:
+        print ("Error: wrong date entered")
     else:
-        to_month1 = tmp_month1 + 0
+        currentyear = int(currentdate[0:4])
+        currentmonth = int(currentdate[4:6])
+        currentday = int(currentdate[6:])
+        maximum_in_month = days_in_mon(currentyear)
+        tmp_month1 = currentmonth
+        tmp_day1 = currentday + 1
+		# If the days go to a new month, it resets itself back to 
+		# the start of the day, otherwise, nothing has been changed
+        if tmp_day1 > maximum_in_month[currentmonth]:
+			# Resets day back to 01 if it goes to a new month
+            to_day1 = tmp_day1 % maximum_in_month[currentmonth] 
+            tmp_month1 = tmp_month1 + 1
+        else:  
+            to_day1 = tmp_day1
+            tmp_month1 = currentmonth + 0
+            
+        if tmp_month1 > 12:
+            to_month1 = 1
+            currentyear = currentyear + 1
+        else:
+            to_month1 = tmp_month1 + 0
 
     # Stores the stripped variables into a string
-    next_date = str(currentyear) + \
-    str(to_month1).zfill(2) + str(to_day1).zfill(2)
+        next_date = str(currentyear) + \
+        str(to_month1).zfill(2) + str(to_day1).zfill(2)
 
     # If the steparg variable is True when the program was ran,
     # It prints out all the days until the destination
     # If False, it just returns the result
-    if steparg == True:
-        print(next_date)
-        return next_date
-    else:
-        return next_date
+        if steparg == True:
+            print(next_date)
+            return next_date
+        else:
+            return next_date
 
 
 # yesterday function
@@ -104,7 +105,7 @@ def yesterday(current):
     # Declares the steparg variable global
     global steparg
     if len(current) != 8:
-        print(usage())
+        print("Error: wrong date entered")
     else:
         currentyear = int(current[0:4])
         currentmonth = int(current[4:6])
