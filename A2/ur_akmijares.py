@@ -31,7 +31,8 @@ def get_login_rec():
     get records from the last command
     filter out the unwanted records
     add filtered record to list (login_recs)'''
-    #return login_recs
+    login_recs = os.system("last -Fiw")
+    return login_recs
  
 def read_login_rec(filelist):
     ''' docstring for this function
