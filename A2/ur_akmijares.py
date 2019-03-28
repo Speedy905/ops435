@@ -11,11 +11,53 @@
 #I understand that the Academic Honesty Policy will be enforced and violators 
 #will be reported and appropriate action will be taken.
 
+'''
+   authorship declaration
+
+   __author__ Antonio Karlo Mijares
+   __date__ March 2019
+   __version__ 1.0
+ 
+   text to describe the purpose of this script
+'''
 
 import sys
 import os
 import argparse
 import time
+
+def get_login_rec():
+    ''' docstring for this fucntion
+    get records from the last command
+    filter out the unwanted records
+    add filtered record to list (login_recs)'''
+    #return login_recs
+ 
+def read_login_rec(filelist):
+    ''' docstring for this function
+    get records from given filelist
+    open and read each file from the filelist
+    filter out the unwanted records
+    add filtered record to list (login_recs)''' 
+    #return login_rec
+
+def cal_daily_usage(subject,login_recs):
+    ''' docstring for this function
+    generate daily usage report for the given 
+    subject (user or remote host)'''
+    #return daily_usage
+
+def cal_weekly_usage(subject,login_recs):
+    ''' docstring for this function
+    generate weekly usage report for the given 
+    subject (user or remote host)'''
+    #return weekly_usage
+
+def cal_monthly_usage(subject,login_recs):
+    ''' docstring for this function
+    generate monthly usage report fro the given
+    subject (user or remote host)'''
+    #return monthly_usage
 
 
 # Checks for arguments
@@ -24,3 +66,4 @@ if __name__ == "__main__":
 	parser.add_argument("F", help="list of files to be processed")
 	args = parser.parse_args()
 	print(args.F)
+
