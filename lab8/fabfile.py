@@ -35,3 +35,7 @@ def setupFirewall():
         if firewallAlreadySetUp.return_code == 1:
         	run("iptables -I INPUT -p tcp --dport 80 -j ACCEPT")
     		run("iptables-save > /etc/sysconfig/iptables")
+
+def getLog():
+  result = run('last -iwF')
+  print(result)
