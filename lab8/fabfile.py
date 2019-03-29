@@ -17,11 +17,10 @@ def setupWebServer():
     run("yum -y -d1 install httpd")
     run("systemctl enable httpd")
     run("systemctl start httpd")
-    #with cd("/var/www/html"):
-     #   put("webcontents.tar.bz2", ".")
-      #  run("tar xvf webcontents.tar.bz2")
-       # run("rm webcontents.tar.bz2")
-    #run("./extract.bash")
+    with cd("/var/www/html"):
+        put("webcontents.tar.bz2", ".")
+        run("tar xvf webcontents.tar.bz2")
+        run("rm webcontents.tar.bz2")
 
 # Will uninstall firewalld and replace it with iptables
 def setupFirewall():
