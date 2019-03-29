@@ -31,8 +31,10 @@ def get_login_rec():
     get records from the last command
     filter out the unwanted records
     add filtered record to list (login_recs)'''
-    login_recs = os.system("last -Fiw")
-    return login_recs
+    #if user == True:
+    	#usagecmd = "last -R" + 
+    #	usageinfo1 = os.system(usagecmd)
+    #return login_recs
  
 def read_login_rec(filelist):
     ''' docstring for this function
@@ -64,7 +66,16 @@ def cal_monthly_usage(subject,login_recs):
 # Checks for arguments
 if __name__ == "__main__":
 	parser = argparse.ArgumentParser()
-	parser.add_argument("F", help="list of files to be processed")
+	parser.add_argument("F", type=str, choices=['...'],
+		help="list of files to be processed")
+	parser.add_argument("-l", "--list", choices=['user', 'host'],
+		help="generate user name or remote host IP from the given files")
+	parser.add_argument("-r", "--rhost", choices=['RHOST'], 
+		help="usage report for the given remote host IP")
+	parser.add_argument("-t", "--type", choices=['daily', 'weekly', 'monthly'],
+		help="type of report: daily, weekly and monthly")
+	parser.add_argument("-u", "--user", choices=['USER'], 
+		help="usage report for the vien user name")
+	parser.add_argument("-v", "--verbose", help="turn on output verbosity")
 	args = parser.parse_args()
-	print(args.F)
 
