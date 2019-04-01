@@ -82,13 +82,27 @@ if __name__ == "__main__":
 	parser.add_argument("-l", "--list", choices=['user', 'host'],
 						help="generate user name or remote host IP from the given files")
 	parser.add_argument("-r", "--rhost", choices=['RHOST'],
-						help="usage report for the given remote host IP")
+						help="usage report for the given remote host IP",
+						type=str)
 	parser.add_argument("-t", "--type",
 						choices=['daily', 'weekly', 'monthly'],
 						help="type of report: daily, weekly and monthly")
 	parser.add_argument("-u", "--user", choices=['USER'],
-						help="usage report for the vien user name")
+						help="usage report for the vien user name", 
+						nargs='?',
+						type=str)
 	parser.add_argument("-v", "--verbose", help="turn on output verbosity")
 	args = parser.parse_args()
 
-	#if args.user
+	if args.list:
+		if args.list == 'user':
+			print ('1')
+		elif args.list == 'host':
+			print('2')
+
+	elif args.user:
+		if args.type:
+			if args.type == daily:
+				read_login_rec()
+				cal_daily_usage()
+
