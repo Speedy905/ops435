@@ -36,7 +36,7 @@ def read_login_rec(filelist):
     # os1 = "pts"
     try:
         fileopen = open(filelist, 'r')
-        login_rec = fileopen.readline()
+        login_rec = fileopen.read()
         return login_rec
     except FileNotFoundError:
         print("File not found")
