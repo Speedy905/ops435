@@ -47,21 +47,17 @@ def cal_daily_usage(subject, login_recs):
     ''' docstring for this function
     generate daily usage report for the given
     subject (user or remote host)'''
-    login_recs = open(login_recs, 'r')
-    login_recs = login_recs.readline()
 
     if subject.isdigit():
         if subject in login_recs:
-            #line = login_recs.readline()
             print('in it')
         else:
-            print ('not in it')
+            print ('Not in file.')
     else:
         if subject in login_recs:
-            line = login_recs.readline()
-            print(line)
+            print('in it')
         else:
-            print('not in it ')
+            print('Not in file')
 
 
 # return daily_usage
@@ -115,16 +111,22 @@ if __name__ == "__main__":
     elif args.user:
        if args.type:
            if args.type == 'daily':
-               cal_daily_usage(args.user, args.F)
+               filetouse = read_login_rec(args.F)
+               cal_daily_usage(args.user, filetouse)
            elif args.type == 'weekly':
-               cal_weekly_usage(args.user, args.F)
+               filetouse = read_login_rec(args.F)
+               cal_weekly_usage(args.user, filetouse)
            elif args.type == 'monthly':
-               cal_monthly_usage(args.user, args.F)
+               filetouse = read_login_rec(args.F)
+               cal_monthly_usage(args.user, filetouse)
     elif args.rhost:
        if args.type:
            if args.type == 'daily':
-               cal_daily_usage(args.rhost, args.F)
+               filetouse = read_login_rec(args.F)
+               cal_daily_usage(args.rhost, filetouse)
            elif args.type == 'weekly':
-               cal_weekly_usage(args.rhost, args.F)
+               filetouse = read_login_rec(args.F)
+               cal_weekly_usage(args.rhost, filetouse)
            elif args.type == 'monthly':
-               cal_monthly_usage(args.rhost, args.F)
+               filetouse = read_login_rec(args.F)
+               cal_monthly_usage(args.rhost, filetouse)
