@@ -38,7 +38,7 @@ def read_login_rec(subj, filelist):
         login_rec = open(filelist, 'r')
         login_rec = login_rec.readlines()
         login_rec = login_rec[1::]
-        print(login_rec)
+        #print(login_rec)
         #login_rec = login_rec.splitlines('\n')
         return login_rec
     except FileNotFoundError:
@@ -56,13 +56,13 @@ def cal_daily_usage(subject, login_recs):
     if subject in login_recs:
         #counter +=1
         line = login_recs
-        time1 = line[39:63]
-        time2 = line[66:90]
-        secs = (time.mktime(time.strptime
-               (time2,"%a %b %d %H:%M:%S %Y")) -
-               time.mktime(time.strptime
-               (time1, "%a %b %d %H:%M:%S %Y")))
-        print(secs)
+        #time1 = line[39:63]
+        #time2 = line[66:90]
+        #secs = (time.mktime(time.strptime
+         #      (time2,"%a %b %d %H:%M:%S %Y")) -
+          #     time.mktime(time.strptime
+           #    (time1, "%a %b %d %H:%M:%S %Y")))
+        #print(secs)
     #else:
      #   print ('Not in file.')
 
