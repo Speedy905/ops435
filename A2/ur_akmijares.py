@@ -50,6 +50,13 @@ def cal_daily_usage(subject, login_recs):
 
     if subject in login_recs:
         line = login_recs
+        time1 = line[39:63]
+        time2 = line[66:90]
+        secs = (time.mktime(time.strptime
+               (time2,"%a %b %d %H:%M:%S %Y")) -
+               time.mktime(time.strptime
+               (time1, "%a %b %d %H:%M:%S %Y")))
+        print(secs)
     else:
         print ('Not in file.')
 
