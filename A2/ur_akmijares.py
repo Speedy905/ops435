@@ -33,18 +33,22 @@ def read_login_rec(subj, filelist):
     open and read each file from the filelist
     filter out the unwanted records
     add filtered record to list (login_recs)'''
-    # os1 = "pts"
+
+    login_rec = []
+    n = 0
     try:
         with open(filelist, 'r') as searching:
+            #searching = searching.read().split('\n')
             for line in searching:
-                line = line.rstrip()
+                line = line.split()
+                n += 1
                 if subj in line:
-                    print(line)
-                #else:
-                 #   print ('Not in file')
+                    login_rec.append(line)
 
-        login_rec = line
+        login_rec.remove('pts')
+        print(login_rec)
         return login_rec
+
     except FileNotFoundError:
         print("File not found")
         sys.exit()
@@ -55,29 +59,23 @@ def cal_daily_usage(subject, login_recs):
     generate daily usage report for the given
     subject (user or remote host)'''
 
-    #counter = 0
+    for subject in login_recs:
+        date1 = login_recs[39:63]
+        date2 = login_recs[66:90]
 
-    #for subject in login_recs:
-    date1 = login_recs[50:58]
-        #d1 = date1.split(':')
-    date2 = login_recs[77:85]
-        #d2 = date2.split(':')
+        sec1 = time.mktime(time.strptime(date2,"%a %b %d %H:%M:%S %Y"))
+        sec2 = time.mktime(time.strptime(date1, "%a %b %d %H:%M:%S %Y"))
+    
+    print(date1)
+    print(date2)
 
-        #sec1 = time.mktime(time.strptime(date2,"%a %b %d %H:%M:%S %Y"))
-        #sec2 = time.mktime(time.strptime(date1, "%a %b %d %H:%M:%S %Y"))
-
-    sec1 = sum(x * int(t) for x, t in zip([3600, 60, 1], 
-            date1.split(":")))
-    sec2 = sum(x * int(t) for x, t in zip([3600, 60, 1], 
-            date2.split(":")))
-
-    #print(diff)
     print(sec1)
     print(sec2)
 
+
     #print(sec1 - sec2)
 
-    #print(sec2 - sec1)
+    print(sec1 - sec2)
 
 
 
@@ -135,7 +133,7 @@ if __name__ == "__main__":
        if args.type:
            if args.type == 'daily':
                filetouse = read_login_rec(args.user, args.F)
-               cal_daily_usage(args.user, filetouse)
+               #cal_daily_usage(args.user, filetouse)
            elif args.type == 'weekly':
                filetouse = read_login_rec(args.F)
                cal_weekly_usage(args.user, filetouse)
