@@ -35,12 +35,12 @@ def read_login_rec(subj, filelist):
     add filtered record to list (login_recs)'''
     # os1 = "pts"
     try:
-        login_rec = open(filelist, 'r')
-        login_rec = login_rec.readlines()
-        login_rec = login_rec[1::]
-        #print(login_rec)
-        #login_rec = login_rec.splitlines('\n')
-        return login_rec
+        with open(filelist, 'r') as searching:
+            for line in searching:
+                line = line.rstrip()
+                if subj in line:
+                    login_rec = line
+                    return login_rec
     except FileNotFoundError:
         print("File not found")
         sys.exit()
@@ -121,7 +121,7 @@ if __name__ == "__main__":
        if args.type:
            if args.type == 'daily':
                filetouse = read_login_rec(args.user, args.F)
-               cal_daily_usage(args.user, filetouse)
+               #cal_daily_usage(args.user, filetouse)
            elif args.type == 'weekly':
                filetouse = read_login_rec(args.F)
                cal_weekly_usage(args.user, filetouse)
