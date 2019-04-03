@@ -36,7 +36,7 @@ def read_login_rec(filelist):
     # os1 = "pts"
     try:
         fileopen = open(filelist, 'r')
-        login_rec = fileopen.read()
+        login_rec = fileopen.readline()
         return login_rec
     except FileNotFoundError:
         print("File not found")
@@ -50,12 +50,12 @@ def cal_daily_usage(subject, login_recs):
 
     if subject.isdigit():
         if subject in login_recs:
-            print('in it')
+            line = login_recs
         else:
             print ('Not in file.')
     else:
         if subject in login_recs:
-            print('in it')
+            line = login_recs
         else:
             print('Not in file')
 
