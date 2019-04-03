@@ -48,16 +48,10 @@ def cal_daily_usage(subject, login_recs):
     generate daily usage report for the given
     subject (user or remote host)'''
 
-    if subject.isdigit():
-        if subject in login_recs:
-            line = login_recs
-        else:
-            print ('Not in file.')
+    if subject in login_recs:
+        line = login_recs
     else:
-        if subject in login_recs:
-            line = login_recs
-        else:
-            print('Not in file')
+        print ('Not in file.')
 
 
 # return daily_usage
