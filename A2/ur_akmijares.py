@@ -47,17 +47,21 @@ def cal_daily_usage(subject, login_recs):
     ''' docstring for this function
     generate daily usage report for the given
     subject (user or remote host)'''
-    fileopen = open(login_recs, 'r')
-    login_recs = fileopen.read()
+    login_recs = open(login_recs, 'r')
+    login_recs = login_recs.readline()
 
     if subject.isdigit():
         if subject in login_recs:
-            line = login_recs.readline()
-            print(line)
+            #line = login_recs.readline()
+            print('in it')
+        else:
+            print ('not in it')
     else:
         if subject in login_recs:
             line = login_recs.readline()
             print(line)
+        else:
+            print('not in it ')
 
 
 # return daily_usage
@@ -83,26 +87,23 @@ def cal_monthly_usage(subject, login_recs):
 
 # Checks for arguments
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser()
     parser = argparse.ArgumentParser(
-        description="Usage report based on the last command")
-    parser.add_argument("F",
-                        action='store',
-                        help="list of files to be processed")
-    parser.add_argument("-l", "--list", choices=['user', 'host'],
-                        help="generate user name or remote host IP from the given files")
-    parser.add_argument("-r", "--rhost",
-                        help="usage report for the given remote host IP",
-                        action='store',
-                        type=str)
-    parser.add_argument("-t", "--type",
-                        choices=['daily', 'weekly', 'monthly'],
-                        help="type of report: daily, weekly and monthly")
-    parser.add_argument("-u", "--user",
-                        help="usage report for the given user name",
-                        action='store',
-                        type=str)
-    parser.add_argument("-v", "--verbose", help="turn on output verbosity")
+        description="Usage Report based on the last command", 
+        epilog='Copyright 2019 - Antonio Karlo Mijares')
+    parser.add_argument('F', help='list of files to be processed')
+    parser.add_argument('-l', '--list', metavar='{user,host}', 
+        type=str, 
+        help='generate user name or remote host IP from the given files')
+    parser.add_argument('-r', '--rhost', 
+        type=str, 
+        help='generate user name or remote host IP from the given files')
+    parser.add_argument('-t', '--type', 
+        metavar='{daily,weekly,monthly}', 
+        type=str, help='type of report: daily,weekly, and monthly')
+    parser.add_argument('-u', '--user', 
+        type=str, help='usage report for the given username')
+    parser.add_argument('-v', '--verbose', 
+        metavar='', help='tune on output verbosity')
     args = parser.parse_args()
 
     if args.list:
@@ -112,18 +113,18 @@ if __name__ == "__main__":
             print('2')
 
     elif args.user:
-        if args.type:
-            if args.type == 'daily':
-                cal_daily_usage(args.type, args.F)
-            elif args.type == 'weekly':
-                cal_weekly_usage(args.type, args.F)
-            elif args.type == 'monthly':
-                cal_monthly_usage(args.type, args.F)
+       if args.type:
+           if args.type == 'daily':
+               cal_daily_usage(args.user, args.F)
+           elif args.type == 'weekly':
+               cal_weekly_usage(args.user, args.F)
+           elif args.type == 'monthly':
+               cal_monthly_usage(args.user, args.F)
     elif args.rhost:
-        if args.type:
-            if args.type == 'daily':
-                cal_daily_usage(args.type, args.F)
-            elif args.type == 'weekly':
-                cal_weekly_usage(args.type, args.F)
-            elif args.type == 'monthly':
-                cal_monthly_usage(args.type, args.F)
+       if args.type:
+           if args.type == 'daily':
+               cal_daily_usage(args.rhost, args.F)
+           elif args.type == 'weekly':
+               cal_weekly_usage(args.rhost, args.F)
+           elif args.type == 'monthly':
+               cal_monthly_usage(args.rhost, args.F)
