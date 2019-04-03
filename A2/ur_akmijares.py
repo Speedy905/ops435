@@ -39,8 +39,12 @@ def read_login_rec(subj, filelist):
             for line in searching:
                 line = line.rstrip()
                 if subj in line:
-                    login_rec = line
-                    return login_rec
+                    print(line)
+                #else:
+                 #   print ('Not in file')
+
+        login_rec = line
+        return login_rec
     except FileNotFoundError:
         print("File not found")
         sys.exit()
@@ -53,18 +57,28 @@ def cal_daily_usage(subject, login_recs):
 
     #counter = 0
 
-    if subject in login_recs:
-        #counter +=1
-        line = login_recs
-        #time1 = line[39:63]
-        #time2 = line[66:90]
-        #secs = (time.mktime(time.strptime
-         #      (time2,"%a %b %d %H:%M:%S %Y")) -
-          #     time.mktime(time.strptime
-           #    (time1, "%a %b %d %H:%M:%S %Y")))
-        #print(secs)
-    #else:
-     #   print ('Not in file.')
+    #for subject in login_recs:
+    date1 = login_recs[50:58]
+        #d1 = date1.split(':')
+    date2 = login_recs[77:85]
+        #d2 = date2.split(':')
+
+        #sec1 = time.mktime(time.strptime(date2,"%a %b %d %H:%M:%S %Y"))
+        #sec2 = time.mktime(time.strptime(date1, "%a %b %d %H:%M:%S %Y"))
+
+    sec1 = sum(x * int(t) for x, t in zip([3600, 60, 1], 
+            date1.split(":")))
+    sec2 = sum(x * int(t) for x, t in zip([3600, 60, 1], 
+            date2.split(":")))
+
+    #print(diff)
+    print(sec1)
+    print(sec2)
+
+    #print(sec1 - sec2)
+
+    #print(sec2 - sec1)
+
 
 
 # return daily_usage
@@ -121,7 +135,7 @@ if __name__ == "__main__":
        if args.type:
            if args.type == 'daily':
                filetouse = read_login_rec(args.user, args.F)
-               #cal_daily_usage(args.user, filetouse)
+               cal_daily_usage(args.user, filetouse)
            elif args.type == 'weekly':
                filetouse = read_login_rec(args.F)
                cal_weekly_usage(args.user, filetouse)
@@ -131,8 +145,8 @@ if __name__ == "__main__":
     elif args.rhost:
        if args.type:
            if args.type == 'daily':
-               filetouse = read_login_rec(args.F)
-               cal_daily_usage(args.rhost, filetouse)
+               filetouse = read_login_rec(args.rhost, args.F)
+               #cal_daily_usage(args.rhost, filetouse)
            elif args.type == 'weekly':
                filetouse = read_login_rec(args.F)
                cal_weekly_usage(args.rhost, filetouse)
