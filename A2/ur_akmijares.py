@@ -27,7 +27,7 @@ import argparse
 import time
 
 
-def read_login_rec(filelist):
+def read_login_rec(subj, filelist):
     ''' docstring for this function
     get records from given filelist
     open and read each file from the filelist
@@ -35,8 +35,11 @@ def read_login_rec(filelist):
     add filtered record to list (login_recs)'''
     # os1 = "pts"
     try:
-        fileopen = open(filelist, 'r')
-        login_rec = fileopen.read()
+        login_rec = open(filelist, 'r')
+        login_rec = login_rec.readlines()
+        login_rec = login_rec[1::]
+        print(login_rec)
+        #login_rec = login_rec.splitlines('\n')
         return login_rec
     except FileNotFoundError:
         print("File not found")
@@ -48,7 +51,10 @@ def cal_daily_usage(subject, login_recs):
     generate daily usage report for the given
     subject (user or remote host)'''
 
+    #counter = 0
+
     if subject in login_recs:
+        #counter +=1
         line = login_recs
         time1 = line[39:63]
         time2 = line[66:90]
@@ -57,8 +63,8 @@ def cal_daily_usage(subject, login_recs):
                time.mktime(time.strptime
                (time1, "%a %b %d %H:%M:%S %Y")))
         print(secs)
-    else:
-        print ('Not in file.')
+    #else:
+     #   print ('Not in file.')
 
 
 # return daily_usage
@@ -69,6 +75,7 @@ def cal_weekly_usage(subject, login_recs):
     generate weekly usage report for the given
     subject (user or remote host)'''
 
+    print ('not yet set')
 
 # return weekly_usage
 
@@ -78,6 +85,7 @@ def cal_monthly_usage(subject, login_recs):
     generate monthly usage report fro the given
     subject (user or remote host)'''
 
+    print ('not yet set')
 
 # return monthly_usage
 
@@ -112,7 +120,7 @@ if __name__ == "__main__":
     elif args.user:
        if args.type:
            if args.type == 'daily':
-               filetouse = read_login_rec(args.F)
+               filetouse = read_login_rec(args.user, args.F)
                cal_daily_usage(args.user, filetouse)
            elif args.type == 'weekly':
                filetouse = read_login_rec(args.F)
