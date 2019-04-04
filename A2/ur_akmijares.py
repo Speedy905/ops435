@@ -22,7 +22,6 @@
 '''
 
 import sys
-import os
 import argparse
 import time
 
@@ -38,10 +37,10 @@ def getlist(filelist):
 
     if args.list == 'user':
         b = 0
-        u = 'user'
+        u = 'User'
     elif args.list == 'host':
         b = 2
-        u = 'host'
+        u = 'Host'
 
     for eachRecond in fileRead:
         temp = fileRead[n].split()
@@ -97,6 +96,7 @@ def cal_daily_usage(subject, login_recs):
     counter = 0
     daily_usage = 0
     for item in range(0, len(login_recs)):
+        restart = 0
         datelist = login_recs[counter]
         
         datetmp1 = datelist[3:8]
@@ -116,9 +116,11 @@ def cal_daily_usage(subject, login_recs):
 
         datemsg = time.strftime("%Y %m %d", time.localtime(sec1))
         daily_usage = int(daily_usage)
-        daily_usage = str(daily_usage)
-        if daily_usage in msg:
-            pass
+        if datemsg in msg:
+            # Temp line, still not sure about this one
+            #daily_usage += diff
+            print ('')
+
         else:
             msg += str(datemsg) + "                 " + str(daily_usage)
             msg += "\n" 
@@ -257,6 +259,3 @@ if __name__ == "__main__":
         elif args.type == 'monthly':
             filetouse = read_login_rec(args.rhost, args.F)
             print(cal_monthly_usage(args.rhost, filetouse))
-
-    if args.verbose:
-        print('test2')
