@@ -35,18 +35,13 @@ def read_login_rec(subj, filelist):
     add filtered record to list (login_recs)'''
 
     login_rec = []
-    n = 0
     try:
         with open(filelist, 'r') as searching:
-            #searching = searching.read().split('\n')
             for line in searching:
                 line = line.split()
-                n += 1
                 if subj in line:
                     login_rec.append(line)
 
-        login_rec.remove('pts')
-        print(login_rec)
         return login_rec
 
     except FileNotFoundError:
@@ -59,23 +54,24 @@ def cal_daily_usage(subject, login_recs):
     generate daily usage report for the given
     subject (user or remote host)'''
 
-    for subject in login_recs:
-        date1 = login_recs[39:63]
-        date2 = login_recs[66:90]
+    counter = 0
+    daily_usage = 0
+    #listlength = len(login_recs)
+    for item in range(0,len(login_recs)):
+        tempstring = ' '.join(login_recs[counter])
 
-        sec1 = time.mktime(time.strptime(date2,"%a %b %d %H:%M:%S %Y"))
-        sec2 = time.mktime(time.strptime(date1, "%a %b %d %H:%M:%S %Y"))
-    
-    print(date1)
-    print(date2)
+        date1 = tempstring[25:49]
+        date2 = tempstring[52:76]
 
-    print(sec1)
-    print(sec2)
+        sec1 = time.mktime(time.strptime(date1,"%a %b %d %H:%M:%S %Y"))
+        sec2 = time.mktime(time.strptime(date2, "%a %b %d %H:%M:%S %Y"))
 
+        diff = sec2 - sec1
 
-    #print(sec1 - sec2)
+        daily_usage += diff
 
-    print(sec1 - sec2)
+        counter +=1
+
 
 
 
@@ -104,6 +100,7 @@ def cal_monthly_usage(subject, login_recs):
 
 # Checks for arguments
 if __name__ == "__main__":
+    login_rec = []
     parser = argparse.ArgumentParser(
         description="Usage Report based on the last command", 
         epilog='Copyright 2019 - Antonio Karlo Mijares')
@@ -132,8 +129,8 @@ if __name__ == "__main__":
     elif args.user:
        if args.type:
            if args.type == 'daily':
-               filetouse = read_login_rec(args.user, args.F)
-               #cal_daily_usage(args.user, filetouse)
+               login_rec = read_login_rec(args.user, args.F)
+               cal_daily_usage(args.user, login_rec)
            elif args.type == 'weekly':
                filetouse = read_login_rec(args.F)
                cal_weekly_usage(args.user, filetouse)
