@@ -122,7 +122,7 @@ def cal_daily_usage(subject, login_recs):
 
         counter += 1
 
-    datemsg = time.strftime("%Y %M %d", time.localtime(sec2))
+    datemsg = time.strftime("%Y %m %d", time.localtime(sec2))
     daily_usage = int(daily_usage)
     msg += str(datemsg) + "                 " + str(daily_usage)
     msg += "\n" 
@@ -170,7 +170,7 @@ def cal_weekly_usage(subject, login_recs):
 
         counter += 1
 
-    datemsg = time.strftime("%Y %M %d", time.localtime(sec1))
+    datemsg = time.strftime("%Y %m %d", time.localtime(sec1))
     weekly_usage = int(weekly_usage)
     msg += str(datemsg) + "                 " + str(weekly_usage)
     msg += "\n" 
@@ -219,7 +219,7 @@ def cal_monthly_usage(subject, login_recs):
 
         counter += 1
 
-    datemsg = time.strftime("%Y %M %d", time.localtime(sec1))
+    datemsg = time.strftime("%Y %m %d", time.localtime(sec1))
     monthly_usage = int(monthly_usage)
     msg += str(datemsg) + "                 " + str(monthly_usage)
     msg += "\n" 
