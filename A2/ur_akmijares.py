@@ -27,6 +27,38 @@ import argparse
 import time
 
 
+def getlist(filelist):
+    file = open(filelist, 'r')
+    fileRead = file.readlines()
+    fileRead = fileRead[1::]
+    NameList = []
+    n = 0
+    b = 0
+    u = None
+
+    if args.list == 'user':
+        b = 0
+        u = 'user'
+    elif args.list == 'host':
+        b = 2
+        u = 'host'
+
+    for eachRecond in fileRead:
+        temp = fileRead[n].split()
+        NameList.append(temp[b])
+        n = n + 1
+    NameList = set(NameList)
+    NameList = list(NameList)
+    NameList.sort()
+
+    login_rec = u + ' ' + 'list for' + ' ' + filelist + '\n' '=============================' '\n'
+    for eachName in NameList:
+        login_rec += eachName
+        login_rec += '\n'
+
+    return login_rec
+
+
 def read_login_rec(subj, filelist):
     ''' docstring for this function
     get records from given filelist
@@ -56,25 +88,25 @@ def cal_daily_usage(subject, login_recs):
 
     counter = 0
     daily_usage = 0
-    for item in range(0,len(login_recs)):
+    for item in range(0, len(login_recs)):
         tempstring = ' '.join(login_recs[counter])
 
         date1 = tempstring[25:49]
         date2 = tempstring[52:76]
 
-        sec1 = time.mktime(time.strptime(date1,"%a %b %d %H:%M:%S %Y"))
+        sec1 = time.mktime(time.strptime(date1, "%a %b %d %H:%M:%S %Y"))
         sec2 = time.mktime(time.strptime(date2, "%a %b %d %H:%M:%S %Y"))
 
         diff = sec2 - sec1
 
         daily_usage += diff
 
-        counter +=1
+        counter += 1
 
-    #tempstring_msg = ' '.join(login_recs[0])
-    #datemsgstring = tempstring[25:49]
-    #dateasc = 
-    #datemsg = time.strptime(datemsgstring,"%Y %m %d")
+    # tempstring_msg = ' '.join(login_recs[0])
+    # datemsgstring = tempstring[25:49]
+    # dateasc =
+    # datemsg = time.strptime(datemsgstring,"%Y %m %d")
 
     msg = ""
     msg += "Daily usage report for " + str(subject)
@@ -86,8 +118,8 @@ def cal_daily_usage(subject, login_recs):
     msg += "null" + "                         " + str(daily_usage)
     return msg
 
-    #return daily_usage
 
+# return daily_usage
 
 
 def cal_weekly_usage(subject, login_recs):
@@ -95,7 +127,8 @@ def cal_weekly_usage(subject, login_recs):
     generate weekly usage report for the given
     subject (user or remote host)'''
 
-    print ('not yet set')
+    print('not yet set')
+
 
 # return weekly_usage
 
@@ -105,7 +138,8 @@ def cal_monthly_usage(subject, login_recs):
     generate monthly usage report fro the given
     subject (user or remote host)'''
 
-    print ('not yet set')
+    print('not yet set')
+
 
 # return monthly_usage
 
@@ -114,46 +148,46 @@ def cal_monthly_usage(subject, login_recs):
 if __name__ == "__main__":
     login_rec = []
     parser = argparse.ArgumentParser(
-        description="Usage Report based on the last command", 
+        description="Usage Report based on the last command",
         epilog='Copyright 2019 - Antonio Karlo Mijares')
     parser.add_argument('F', help='list of files to be processed')
-    parser.add_argument('-l', '--list', metavar='{user,host}', 
-        type=str, 
-        help='generate user name or remote host IP from the given files')
-    parser.add_argument('-r', '--rhost', 
-        type=str, 
-        help='generate user name or remote host IP from the given files')
-    parser.add_argument('-t', '--type', 
-        metavar='{daily,weekly,monthly}', 
-        type=str, help='type of report: daily,weekly, and monthly')
-    parser.add_argument('-u', '--user', 
-        type=str, help='usage report for the given username')
-    parser.add_argument('-v', '--verbose', 
-        metavar='', help='tune on output verbosity')
+    parser.add_argument('-l', '--list', metavar='{user,host}',
+                        type=str,
+                        help='generate user name or remote host IP from the given files')
+    parser.add_argument('-r', '--rhost',
+                        type=str,
+                        help='generate user name or remote host IP from the given files')
+    parser.add_argument('-t', '--type',
+                        metavar='{daily,weekly,monthly}',
+                        type=str, help='type of report: daily,weekly, and monthly')
+    parser.add_argument('-u', '--user',
+                        type=str, help='usage report for the given username')
+    parser.add_argument('-v', '--verbose',
+                        metavar='', help='tune on output verbosity')
     args = parser.parse_args()
 
     if args.list:
-        print(read_login_rec(args.F))
-            
+        print(getlist(args.F))
+
     elif args.user:
-       if args.type:
-           if args.type == 'daily':
-               login_rec = read_login_rec(args.user, args.F)
-               print(cal_daily_usage(args.user, login_rec))
-           elif args.type == 'weekly':
-               filetouse = read_login_rec(args.F)
-               cal_weekly_usage(args.user, filetouse)
-           elif args.type == 'monthly':
-               filetouse = read_login_rec(args.F)
-               cal_monthly_usage(args.user, filetouse)
+        if args.type:
+            if args.type == 'daily':
+                login_rec = read_login_rec(args.user, args.F)
+                print(cal_daily_usage(args.user, login_rec))
+            elif args.type == 'weekly':
+                filetouse = read_login_rec(args.F)
+                cal_weekly_usage(args.user, filetouse)
+        elif args.type == 'monthly':
+            filetouse = read_login_rec(args.F)
+            cal_monthly_usage(args.user, filetouse)
     elif args.rhost:
-       if args.type:
-           if args.type == 'daily':
-               filetouse = read_login_rec(args.rhost, args.F)
-               #cal_daily_usage(args.rhost, filetouse)
-           elif args.type == 'weekly':
-               filetouse = read_login_rec(args.F)
-               cal_weekly_usage(args.rhost, filetouse)
-           elif args.type == 'monthly':
-               filetouse = read_login_rec(args.F)
-               cal_monthly_usage(args.rhost, filetouse)
+        if args.type:
+            if args.type == 'daily': login_rec
+            filetouse = read_login_rec(args.rhost, args.F)
+            cal_daily_usage(args.rhost, filetouse)
+        elif args.type == 'weekly':
+            filetouse = read_login_rec(args.F)
+            cal_weekly_usage(args.rhost, filetouse)
+        elif args.type == 'monthly':
+            filetouse = read_login_rec(args.F)
+            cal_monthly_usage(args.rhost, filetouse)
