@@ -86,6 +86,14 @@ def cal_daily_usage(subject, login_recs):
     generate daily usage report for the given
     subject (user or remote host)'''
 
+    msg = ""
+    msg += "Daily usage report for " + str(subject)
+    msg += "\n"
+    msg += "======================================="
+    msg += "\n"
+    msg += "Date                   Usage in seconds"
+    msg += "\n"
+
     counter = 0
     daily_usage = 0
     for item in range(0, len(login_recs)):
@@ -112,23 +120,12 @@ def cal_daily_usage(subject, login_recs):
 
         counter += 1
 
-    # tempstring_msg = ' '.join(login_recs[0])
-    # datemsgstring = tempstring[25:49]
-    # dateasc =
-    # datemsg = time.strptime(datemsgstring,"%Y %m %d")
-
-    msg = ""
-    msg += "Daily usage report for " + str(subject)
-    msg += "\n"
-    msg += "======================================="
-    msg += "\n"
-    msg += "Date                   Usage in seconds"
-    msg += "\n"
-    msg += "null" + "                         " + str(daily_usage)
+    datemsg = time.strftime("%Y %M %d", time.localtime(sec1))
+    msg += str(datemsg) + "                 " + str(daily_usage)
+    msg += "\n" 
+    
+    msg += "Total" + "                      " + str(daily_usage)
     return msg
-
-
-# return daily_usage
 
 
 def cal_weekly_usage(subject, login_recs):
@@ -233,6 +230,7 @@ if __name__ == "__main__":
         elif args.type == 'monthly':
             filetouse = read_login_rec(args.user, args.F)
             print(cal_monthly_usage(args.user, filetouse))
+
     if args.rhost:
         if args.type == 'daily':
             filetouse = read_login_rec(args.rhost, args.F)
@@ -245,4 +243,4 @@ if __name__ == "__main__":
             print(cal_monthly_usage(args.rhost, filetouse))
 
     if args.verbose:
-        print('test')
+        print('test2')
