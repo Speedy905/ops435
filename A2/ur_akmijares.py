@@ -51,12 +51,12 @@ def getlist(filelist):
     NameList = list(NameList)
     NameList.sort()
 
-    login_rec = u + ' ' + 'list for' + ' ' + filelist + '\n' '=============================' '\n'
+    login = u + ' ' + 'list for' + ' ' + filelist + '\n' '=============================' '\n'
     for eachName in NameList:
-        login_rec += eachName
-        login_rec += '\n'
+        login += eachName
+        login += '\n'
 
-    return login_rec
+    return login
 
 
 def read_login_rec(subj, filelist):
@@ -65,7 +65,6 @@ def read_login_rec(subj, filelist):
     open and read each file from the filelist
     filter out the unwanted records
     add filtered record to list (login_recs)'''
-
     login_rec = []
     try:
         with open(filelist, 'r') as searching:
@@ -74,12 +73,13 @@ def read_login_rec(subj, filelist):
                 if subj in line:
                     login_rec.append(line)
 
+        
+        #print(login_rec)
         return login_rec
 
     except FileNotFoundError:
         print("File not found")
         sys.exit()
-
 
 def cal_daily_usage(subject, login_recs):
     ''' docstring for this function
@@ -92,7 +92,7 @@ def cal_daily_usage(subject, login_recs):
         tempstring = ' '.join(login_recs[counter])
 
         lengthlist = len(tempstring)
-        
+
         if lengthlist == 84:
             date1 = tempstring[25:49]
             date2 = tempstring[52:76]
@@ -155,7 +155,6 @@ def cal_monthly_usage(subject, login_recs):
 
 # Checks for arguments
 if __name__ == "__main__":
-    login_rec = []
     parser = argparse.ArgumentParser(
         description="Usage Report based on the last command",
         epilog='Copyright 2019 - Antonio Karlo Mijares')
@@ -178,22 +177,20 @@ if __name__ == "__main__":
     if args.list:
         print(getlist(args.F))
 
-    elif args.user:
-        if args.type:
-            if args.type == 'daily':
-                login_rec = read_login_rec(args.user, args.F)
-                print(cal_daily_usage(args.user, login_rec))
-            elif args.type == 'weekly':
-                filetouse = read_login_rec(args.user, args.F)
-                cal_weekly_usage(args.user, filetouse)
+    if args.user:
+        if args.type == 'daily':
+            filetouse = read_login_rec(args.user, args.F)
+            print(cal_daily_usage(args.user, filetouse))
+        elif args.type == 'weekly':
+            filetouse = read_login_rec(args.user, args.F)
+            cal_weekly_usage(args.user, filetouse)
         elif args.type == 'monthly':
             filetouse = read_login_rec(args.F)
             cal_monthly_usage(args.user, filetouse)
-    elif args.rhost:
-        if args.type:
-            if args.type == 'daily': login_rec
+    if args.rhost:
+        if args.type == 'daily':
             filetouse = read_login_rec(args.rhost, args.F)
-            cal_daily_usage(args.rhost, filetouse)
+            print(cal_daily_usage(args.rhost, filetouse))
         elif args.type == 'weekly':
             filetouse = read_login_rec(args.F)
             cal_weekly_usage(args.rhost, filetouse)
