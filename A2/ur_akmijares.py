@@ -56,7 +56,6 @@ def cal_daily_usage(subject, login_recs):
 
     counter = 0
     daily_usage = 0
-    #listlength = len(login_recs)
     for item in range(0,len(login_recs)):
         tempstring = ' '.join(login_recs[counter])
 
@@ -72,10 +71,23 @@ def cal_daily_usage(subject, login_recs):
 
         counter +=1
 
+    #tempstring_msg = ' '.join(login_recs[0])
+    #datemsgstring = tempstring[25:49]
+    #dateasc = 
+    #datemsg = time.strptime(datemsgstring,"%Y %m %d")
 
+    msg = ""
+    msg += "Daily usage report for " + str(subject)
+    msg += "\n"
+    msg += "======================================="
+    msg += "\n"
+    msg += "Date                   Usage in seconds"
+    msg += "\n"
+    msg += "null" + "                         " + str(daily_usage)
+    return msg
 
+    #return daily_usage
 
-# return daily_usage
 
 
 def cal_weekly_usage(subject, login_recs):
@@ -121,16 +133,13 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
     if args.list:
-        if args.list == 'user':
-            print('1')
-        elif args.list == 'host':
-            print('2')
-
+        print(read_login_rec(args.F))
+            
     elif args.user:
        if args.type:
            if args.type == 'daily':
                login_rec = read_login_rec(args.user, args.F)
-               cal_daily_usage(args.user, login_rec)
+               print(cal_daily_usage(args.user, login_rec))
            elif args.type == 'weekly':
                filetouse = read_login_rec(args.F)
                cal_weekly_usage(args.user, filetouse)
