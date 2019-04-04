@@ -27,6 +27,9 @@ import argparse
 import time
 
 
+#date1 = None
+#date2 = None
+
 def getlist(filelist):
     file = open(filelist, 'r')
     fileRead = file.readlines()
@@ -86,6 +89,12 @@ def cal_daily_usage(subject, login_recs):
     generate daily usage report for the given
     subject (user or remote host)'''
 
+    #global date1
+    #global date2
+
+    date1 = "Lol"
+    date2 = "Lol"
+
     msg = ""
     msg += "Daily usage report for " + str(subject)
     msg += "\n"
@@ -97,24 +106,22 @@ def cal_daily_usage(subject, login_recs):
     counter = 0
     daily_usage = 0
     for item in range(0, len(login_recs)):
-        #dailydate1 = None
-        #dailydate2 = None
         tempstring = ' '.join(login_recs[counter])
 
         lengthlist = len(tempstring)
 
         if lengthlist == 84:
-            dailydate1 = tempstring[25:49]
-            dailydate2 = tempstring[52:76]
+            date1 = tempstring[25:49]
+            date2 = tempstring[52:76]
         elif lengthlist == 85:
-            dailydate1 = tempstring[26:50]
-            dailydate2 = tempstring[53:77]
+            date1 = tempstring[26:50]
+            date2 = tempstring[53:77]
         elif lengthlist == 86:
-            dailydate1 = tempstring[27:51]
-            dailydate2 = tempstring[54:78]
+            date1 = tempstring[27:51]
+            date2 = tempstring[54:78]
 
-        sec1 = time.mktime(time.strptime(dailydate1, "%a %b %d %H:%M:%S %Y"))
-        sec2 = time.mktime(time.strptime(dailydate2, "%a %b %d %H:%M:%S %Y"))
+        sec1 = time.mktime(time.strptime(date1, "%a %b %d %H:%M:%S %Y"))
+        sec2 = time.mktime(time.strptime(date2, "%a %b %d %H:%M:%S %Y"))
 
         diff = sec2 - sec1
 
