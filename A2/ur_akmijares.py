@@ -116,8 +116,12 @@ def cal_daily_usage(subject, login_recs):
 
         datemsg = time.strftime("%Y %m %d", time.localtime(sec1))
         daily_usage = int(daily_usage)
-        msg += str(datemsg) + "                 " + str(daily_usage)
-        msg += "\n" 
+        daily_usage = str(daily_usage)
+        if daily_usage in msg:
+            pass
+        else:
+            msg += str(datemsg) + "                 " + str(daily_usage)
+            msg += "\n" 
     
     msg += "Total" + "                      " + str(daily_usage)
     return msg
