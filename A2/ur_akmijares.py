@@ -136,10 +136,33 @@ def cal_weekly_usage(subject, login_recs):
     generate weekly usage report for the given
     subject (user or remote host)'''
 
-    print('not yet set')
+    counter = 0
+    daily_usage = 0
+    for item in range(0, len(login_recs)):
+        tempstring = ' '.join(login_recs[counter])
 
+        lengthlist = len(tempstring)
 
-# return weekly_usage
+        if lengthlist == 84:
+            date1 = tempstring[25:49]
+            date2 = tempstring[52:76]
+        elif lengthlist == 85:
+            date1 = tempstring[26:50]
+            date2 = tempstring[53:77]
+        elif lengthlist == 86:
+            date1 = tempstring[27:51]
+            date2 = tempstring[54:78]
+
+        sec1 = time.mktime(time.strptime(date1, "%a %b %d %H:%M:%S %Y"))
+        sec2 = time.mktime(time.strptime(date2, "%a %b %d %H:%M:%S %Y"))
+
+        diff = sec2 - sec1
+
+        weekly_usage += diff
+
+        counter += 1
+
+    return weekly_usage
 
 
 def cal_monthly_usage(subject, login_recs):
@@ -147,10 +170,33 @@ def cal_monthly_usage(subject, login_recs):
     generate monthly usage report fro the given
     subject (user or remote host)'''
 
-    print('not yet set')
+    counter = 0
+    monthly_usage = 0
+    for item in range(0, len(login_recs)):
+        tempstring = ' '.join(login_recs[counter])
 
+        lengthlist = len(tempstring)
 
-# return monthly_usage
+        if lengthlist == 84:
+            date1 = tempstring[25:49]
+            date2 = tempstring[52:76]
+        elif lengthlist == 85:
+            date1 = tempstring[26:50]
+            date2 = tempstring[53:77]
+        elif lengthlist == 86:
+            date1 = tempstring[27:51]
+            date2 = tempstring[54:78]
+
+        sec1 = time.mktime(time.strptime(date1, "%a %b %d %H:%M:%S %Y"))
+        sec2 = time.mktime(time.strptime(date2, "%a %b %d %H:%M:%S %Y"))
+
+        diff = sec2 - sec1
+
+        monthly_usage += diff
+
+        counter += 1
+
+    return monthly_usage
 
 
 # Checks for arguments
@@ -183,17 +229,20 @@ if __name__ == "__main__":
             print(cal_daily_usage(args.user, filetouse))
         elif args.type == 'weekly':
             filetouse = read_login_rec(args.user, args.F)
-            cal_weekly_usage(args.user, filetouse)
+            print(cal_weekly_usage(args.user, filetouse))
         elif args.type == 'monthly':
             filetouse = read_login_rec(args.F)
-            cal_monthly_usage(args.user, filetouse)
+            print(cal_monthly_usage(args.user, filetouse))
     if args.rhost:
         if args.type == 'daily':
             filetouse = read_login_rec(args.rhost, args.F)
             print(cal_daily_usage(args.rhost, filetouse))
         elif args.type == 'weekly':
             filetouse = read_login_rec(args.F)
-            cal_weekly_usage(args.rhost, filetouse)
+            print(cal_weekly_usage(args.rhost, filetouse))
         elif args.type == 'monthly':
             filetouse = read_login_rec(args.F)
-            cal_monthly_usage(args.rhost, filetouse)
+            print(cal_monthly_usage(args.rhost, filetouse))
+
+    if args.verbose:
+        print('test')
