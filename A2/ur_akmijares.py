@@ -137,7 +137,7 @@ def cal_weekly_usage(subject, login_recs):
     subject (user or remote host)'''
 
     counter = 0
-    daily_usage = 0
+    weekly_usage = 0
     for item in range(0, len(login_recs)):
         tempstring = ' '.join(login_recs[counter])
 
@@ -231,17 +231,17 @@ if __name__ == "__main__":
             filetouse = read_login_rec(args.user, args.F)
             print(cal_weekly_usage(args.user, filetouse))
         elif args.type == 'monthly':
-            filetouse = read_login_rec(args.F)
+            filetouse = read_login_rec(args.user, args.F)
             print(cal_monthly_usage(args.user, filetouse))
     if args.rhost:
         if args.type == 'daily':
             filetouse = read_login_rec(args.rhost, args.F)
             print(cal_daily_usage(args.rhost, filetouse))
         elif args.type == 'weekly':
-            filetouse = read_login_rec(args.F)
+            filetouse = read_login_rec(args.rhost, args.F)
             print(cal_weekly_usage(args.rhost, filetouse))
         elif args.type == 'monthly':
-            filetouse = read_login_rec(args.F)
+            filetouse = read_login_rec(args.rhost, args.F)
             print(cal_monthly_usage(args.rhost, filetouse))
 
     if args.verbose:
