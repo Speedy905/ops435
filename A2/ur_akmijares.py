@@ -91,8 +91,17 @@ def cal_daily_usage(subject, login_recs):
     for item in range(0, len(login_recs)):
         tempstring = ' '.join(login_recs[counter])
 
-        date1 = tempstring[25:49]
-        date2 = tempstring[52:76]
+        lengthlist = len(tempstring)
+        
+        if lengthlist == 84:
+            date1 = tempstring[25:49]
+            date2 = tempstring[52:76]
+        elif lengthlist == 85:
+            date1 = tempstring[26:50]
+            date2 = tempstring[53:77]
+        elif lengthlist == 86:
+            date1 = tempstring[27:51]
+            date2 = tempstring[54:78]
 
         sec1 = time.mktime(time.strptime(date1, "%a %b %d %H:%M:%S %Y"))
         sec2 = time.mktime(time.strptime(date2, "%a %b %d %H:%M:%S %Y"))
@@ -175,7 +184,7 @@ if __name__ == "__main__":
                 login_rec = read_login_rec(args.user, args.F)
                 print(cal_daily_usage(args.user, login_rec))
             elif args.type == 'weekly':
-                filetouse = read_login_rec(args.F)
+                filetouse = read_login_rec(args.user, args.F)
                 cal_weekly_usage(args.user, filetouse)
         elif args.type == 'monthly':
             filetouse = read_login_rec(args.F)
