@@ -161,7 +161,7 @@ def cal_weekly_usage(subject, login_recs):
         msg += str(datemsg) + "                 " + str(weekly_usage)
         msg += "\n" 
     
-    msg += "Total" + "                      " + str(weekly_usage)
+    msg += "Total" + "                   " + str(weekly_usage)
     return msg
 
 
@@ -204,7 +204,7 @@ def cal_monthly_usage(subject, login_recs):
         msg += str(datemsg) + "                 " + str(monthly_usage)
         msg += "\n" 
     
-    msg += "Total" + "                      " + str(monthly_usage)
+    msg += "Total" + "                   " + str(monthly_usage)
     return msg
 
 
