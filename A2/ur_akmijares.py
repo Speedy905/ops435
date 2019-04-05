@@ -110,7 +110,6 @@ def cal_daily_usage(subject, login_recs):
     counter = 0
     daily_usage = 0
     for item in range(0, len(login_recs)):
-        restart = 0
         datelist = login_recs[counter]
         
         datetmp1 = datelist[3:8]
@@ -124,6 +123,8 @@ def cal_daily_usage(subject, login_recs):
 
         diff = sec2 - sec1
 
+        diff = int(diff)
+
         daily_usage += diff
 
         counter += 1
@@ -132,8 +133,8 @@ def cal_daily_usage(subject, login_recs):
         daily_usage = int(daily_usage)
         if datemsg in msg:
             # Temp line, still not sure about this one
-            #daily_usage += diff
-            print ('')
+            msg += str(diff)
+            #pass
 
         else:
             msg += str(datemsg) + "                 " + str(daily_usage)
