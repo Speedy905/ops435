@@ -94,7 +94,6 @@ def cal_daily_usage(subject, login_recs):
     ''' docstring for this function
     generate daily usage report for the given
     subject (user or remote host)'''
-
     msg = ""
     msg += "Daily usage report for " + str(subject)
     msg += "\n"
@@ -109,8 +108,6 @@ def cal_daily_usage(subject, login_recs):
 
     counter = 0
     daily_usage = 0
-    #day_use = 0
-    #datedict = []
     diffdict = []
     tmp = []
     for item in range(0, len(login_recs)):
@@ -131,8 +128,6 @@ def cal_daily_usage(subject, login_recs):
         diffdict.append(int(diff))
 
         days = sum(diffdict)
-
-        print(days)
 
         daily_usage += diff 
 
@@ -167,7 +162,6 @@ def cal_weekly_usage(subject, login_recs):
     ''' docstring for this function
     generate weekly usage report for the given
     subject (user or remote host)'''
-
     msg = ""
     msg += "Weekly usage report for " + str(subject)
     msg += "\n"
@@ -182,6 +176,8 @@ def cal_weekly_usage(subject, login_recs):
 
     counter = 0
     weekly_usage = 0
+    diffdict = []
+    tmp = []
     for item in range(0, len(login_recs)):
         datelist = login_recs[counter]
         
@@ -196,6 +192,10 @@ def cal_weekly_usage(subject, login_recs):
 
         diff = sec2 - sec1
 
+        diffdict.append(int(diff))
+
+        days = sum(diffdict)
+
         weekly_usage += diff
 
         counter += 1
@@ -203,13 +203,19 @@ def cal_weekly_usage(subject, login_recs):
         datemsg = time.strftime("%Y %W", time.localtime(sec1))
         weekly_usage = int(weekly_usage)
         if datemsg in msg:
-            pass
+            if t in msg:
+                msg = msg.replace(t, str(days))
+                tmp = []
+                diffdict = []
         else:
             msg += str(datemsg)
             for length in range (7,19):
                 msg += " "
             msg += str(weekly_usage)
             msg += "\n" 
+
+            tmp.append(str(int(diff)))
+            t = ''.join(tmp)
     
     msg += "Total"
     for length in range (5,19):
@@ -222,8 +228,6 @@ def cal_monthly_usage(subject, login_recs):
     ''' docstring for this function
     generate monthly usage report fro the given
     subject (user or remote host)'''
-
-
     msg = ""
     msg += "Monthly usage report for " + str(subject)
     msg += "\n"
@@ -238,6 +242,8 @@ def cal_monthly_usage(subject, login_recs):
 
     counter = 0
     monthly_usage = 0
+    diffdict = []
+    tmp = []
     for item in range(0, len(login_recs)):
         datelist = login_recs[counter]
         
@@ -252,6 +258,11 @@ def cal_monthly_usage(subject, login_recs):
 
         diff = sec2 - sec1
 
+
+        diffdict.append(int(diff))
+
+        days = sum(diffdict)
+
         monthly_usage += diff
 
         counter += 1
@@ -259,13 +270,19 @@ def cal_monthly_usage(subject, login_recs):
         datemsg = time.strftime("%Y %m", time.localtime(sec1))
         monthly_usage = int(monthly_usage)
         if datemsg in msg:
-            pass
+            if t in msg:
+                msg = msg.replace(t, str(days))
+                tmp = []
+                diffdict = []
         else:
             msg += str(datemsg)
             for length in range (7,19):
                 msg += " "
             msg += str(monthly_usage)
             msg += "\n" 
+
+            tmp.append(str(int(diff)))
+            t = ''.join(tmp)
     
     msg += "Total"
     for length in range (5,19):
