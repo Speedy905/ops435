@@ -101,7 +101,10 @@ def cal_daily_usage(subject, login_recs):
     for length in range(1, len(msg)):
         msg += "="
     msg += "\n"
-    msg += "Date                   Usage in seconds"
+    msg += "Date"
+    for lenth in range(4,14):
+        msg += " "
+    msg += "Usage in seconds"
     msg += "\n"
 
     counter = 0
@@ -151,7 +154,10 @@ def cal_weekly_usage(subject, login_recs):
     for length in range(1, len(msg)):
         msg += "="
     msg += "\n"
-    msg += "Date                   Usage in seconds"
+    msg += "Week #"
+    for length in range(6,14):
+        msg += " "
+    msg += "Usage in seconds"
     msg += "\n"
 
     counter = 0
@@ -198,7 +204,10 @@ def cal_monthly_usage(subject, login_recs):
     for length in range (1,len(msg)):
         msg += "="
     msg += "\n"
-    msg += "Date                   Usage in seconds"
+    msg += "Month"
+    for length in range (5,14):
+        msg += " "
+    msg += "Usage in seconds"
     msg += "\n"
 
     counter = 0
