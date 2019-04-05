@@ -109,7 +109,12 @@ def cal_daily_usage(subject, login_recs):
 
     counter = 0
     daily_usage = 0
+    #day_use = 0
+    #datedict = []
+    diffdict = []
+    tmp = []
     for item in range(0, len(login_recs)):
+        #before = 0
         datelist = login_recs[counter]
         
         datetmp1 = datelist[3:8]
@@ -123,24 +128,38 @@ def cal_daily_usage(subject, login_recs):
 
         diff = sec2 - sec1
 
-        diff = int(diff)
+        diffdict.append(int(diff))
 
-        daily_usage += diff
+        days = sum(diffdict)
 
-        counter += 1
+        print(days)
+
+        daily_usage += diff 
+
+        counter += 1 
 
         datemsg = time.strftime("%Y %m %d", time.localtime(sec1))
         daily_usage = int(daily_usage)
         if datemsg in msg:
-            # Temp line, still not sure about this one
-            msg += str(diff)
-            #pass
-
+            if t in msg:
+                msg = msg.replace(t, str(days))
+                tmp = []
+                diffdict = []
+                #pass
         else:
-            msg += str(datemsg) + "                 " + str(daily_usage)
-            msg += "\n" 
-    
-    msg += "Total" + "                      " + str(daily_usage)
+            msg += str(datemsg)
+            for length in range (10,18):
+                msg += " "
+            msg += str(daily_usage)
+            msg += "\n"
+
+            tmp.append(str(int(diff)))
+            t = ''.join(tmp)
+
+    msg += "Total"
+    for length in range (5,18):
+        msg += " "
+    msg += str(daily_usage)
     return msg
 
 
