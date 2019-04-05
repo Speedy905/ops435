@@ -138,8 +138,8 @@ def cal_daily_usage(subject, login_recs):
         if datemsg in msg:
             if t in msg:
                 msg = msg.replace(t, str(days))
-                tmp = []
-                diffdict = []
+                #tmp = []
+                #diffdict = []
                 #pass
         else:
             msg += str(datemsg)
@@ -150,6 +150,10 @@ def cal_daily_usage(subject, login_recs):
 
             tmp.append(str(int(diff)))
             t = ''.join(tmp)
+
+            diffdict = []
+            tmp = []
+            days = 0
 
     msg += "Total"
     for length in range (5,18):
