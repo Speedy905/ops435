@@ -232,8 +232,13 @@ if __name__ == "__main__":
     parser.add_argument('-u', '--user',
                         type=str, help='usage report for the given username')
     parser.add_argument('-v', '--verbose',
-                        metavar='', help='tune on output verbosity')
+                        help='tune on output verbosity',
+                        action='store_true')
     args = parser.parse_args()
+
+    
+    if args.verbose:
+        print('test')
 
     if args.list:
         print(getlist(args.F))
