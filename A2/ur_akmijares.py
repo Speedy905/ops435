@@ -238,29 +238,60 @@ if __name__ == "__main__":
 
     
     if args.verbose:
-        print('test')
+        print("Files to be processed: " + str(args.F))
+        print("Type of args for files <class 'list'>")
 
     if args.list:
         print(getlist(args.F))
 
     if args.user:
         if args.type == 'daily':
+            if args.verbose:
+                print("Usage report for user: " + str(args.user))
+                print("Usage report type: " + str(args.type))
+                print("Processing usage report for the following:")
+                print("reading login/logout record files " + str(args.F))
             filetouse = read_login_rec(args.user, args.F)
             print(cal_daily_usage(args.user, filetouse))
         elif args.type == 'weekly':
+            if args.verbose:
+                print("Usage report for user: " + str(args.user))
+                print("Usage report type: " + str(args.type))
+                print("Processing usage report for the following:")
+                print("reading login/logout record files " + str(args.F))
             filetouse = read_login_rec(args.user, args.F)
             print(cal_weekly_usage(args.user, filetouse))
         elif args.type == 'monthly':
+            if args.verbose:
+                print("Usage report for user: " + str(args.user))
+                print("Usage report type: " + str(args.type))
+                print("Processing usage report for the following:")
+                print("reading login/logout record files " + str(args.F))
             filetouse = read_login_rec(args.user, args.F)
             print(cal_monthly_usage(args.user, filetouse))
 
     if args.rhost:
         if args.type == 'daily':
+            if args.verbose:
+                print("Usage report for remote host: " + str(args.rhost))
+                print("Usage report type: " + str(args.type))
+                print("Processing usage report for the following:")
+                print("reading login/logout record files " + str(args.F))
             filetouse = read_login_rec(args.rhost, args.F)
             print(cal_daily_usage(args.rhost, filetouse))
         elif args.type == 'weekly':
+            if args.verbose:
+                print("Usage report for remote host: " + str(args.rhost))
+                print("Usage report type: " + str(args.type))
+                print("Processing usage report for the following:")
+                print("reading login/logout record files " + str(args.F))
             filetouse = read_login_rec(args.rhost, args.F)
             print(cal_weekly_usage(args.rhost, filetouse))
         elif args.type == 'monthly':
+            if args.verbose:
+                print("Usage report for rhost: " + str(args.rhost))
+                print("Usage report type: " + str(args.type))
+                print("Processing usage report for the following:")
+                print("reading login/logout record files " + str(args.F))
             filetouse = read_login_rec(args.rhost, args.F)
             print(cal_monthly_usage(args.rhost, filetouse))
