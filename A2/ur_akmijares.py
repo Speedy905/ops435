@@ -28,8 +28,7 @@ import time
 
 
 def getlist(filelist):
-    ''' docstring for this function
-    If the user decides to display
+    '''If the user decides to display
     the info, it will search through
     the file and filter out the 
     appropriate variable'''
@@ -69,12 +68,13 @@ def getlist(filelist):
 
 
 def read_login_rec(subj, filelist):
-    ''' docstring for this function
-    get records from given filelist
+    '''get records from given filelist
     open and read each file from the filelist
     filter out the unwanted records
     add filtered record to list (login_recs)'''
     login_rec = []
+    # Opens the file, finds the line that have
+    # The needed subject, and adds them to a list
     try:
         with open(filelist, 'r') as searching:
             for line in searching:
@@ -83,17 +83,21 @@ def read_login_rec(subj, filelist):
                     login_rec.append(line)
 
         
-        #print(login_rec)
+        # Returns the list
         return login_rec
 
+    # Error exception when file is not found
     except FileNotFoundError:
         print("File not found")
         sys.exit()
 
 def cal_daily_usage(subject, login_recs):
-    ''' docstring for this function
-    generate daily usage report for the given
+    '''generate daily usage report for the given
     subject (user or remote host)'''
+
+    # Adds the string to the top of the "table"
+    # With the border (being =) pritned by the length
+    # of the title
     msg = ""
     msg += "Daily usage report for " + str(subject)
     msg += "\n"
@@ -106,10 +110,21 @@ def cal_daily_usage(subject, login_recs):
     msg += "Usage in seconds"
     msg += "\n"
 
+    # Creates empty lists and variables
     counter = 0
     daily_usage = 0
     diffdict = []
     tmp = []
+
+    # Runs through a for loop, where it goes from
+    # The beginning of the 2d array to the end, 
+    # Starting with the inner array, selects the dates
+    # Puts them into a string, then the time module
+    # Puts them into tuples (being seconds), which
+    # Then calculates the difference between the two dates
+    # Which the data is then "displayed" for the user
+    # Then repeats until there are no more dates that need
+    # To be calculated 
     for item in range(0, len(login_recs)):
         #before = 0
         datelist = login_recs[counter]
@@ -133,8 +148,13 @@ def cal_daily_usage(subject, login_recs):
 
         counter += 1 
 
+        # Converts the tuple into a readable format
         datemsg = time.strftime("%Y %m %d", time.localtime(sec1))
         daily_usage = int(daily_usage)
+
+        # Checks if the date already exists,
+        # Which replaces the seconds into 
+        # Another updated and calculated one
         if datemsg in msg:
             if t in msg:
                 msg = msg.replace(t, str(days))
@@ -155,6 +175,7 @@ def cal_daily_usage(subject, login_recs):
             tmp = []
             days = 0
 
+    # Displays the total amount of secs
     msg += "Total"
     for length in range (5,18):
         msg += " "
@@ -163,9 +184,12 @@ def cal_daily_usage(subject, login_recs):
 
 
 def cal_weekly_usage(subject, login_recs):
-    ''' docstring for this function
-    generate weekly usage report for the given
+    '''generate weekly usage report for the given
     subject (user or remote host)'''
+
+    # Adds the string to the top of the "table"
+    # With the border (being =) pritned by the length
+    # of the title
     msg = ""
     msg += "Weekly usage report for " + str(subject)
     msg += "\n"
@@ -182,6 +206,16 @@ def cal_weekly_usage(subject, login_recs):
     weekly_usage = 0
     diffdict = []
     tmp = []
+
+    # Runs through a for loop, where it goes from
+    # The beginning of the 2d array to the end, 
+    # Starting with the inner array, selects the dates
+    # Puts them into a string, then the time module
+    # Puts them into tuples (being seconds), which
+    # Then calculates the difference between the two dates
+    # Which the data is then "displayed" for the user
+    # Then repeats until there are no more dates that need
+    # To be calculated 
     for item in range(0, len(login_recs)):
         datelist = login_recs[counter]
         
@@ -206,6 +240,10 @@ def cal_weekly_usage(subject, login_recs):
 
         datemsg = time.strftime("%Y %W", time.localtime(sec1))
         weekly_usage = int(weekly_usage)
+
+        # Checks if the date already exists,
+        # Which replaces the seconds into 
+        # Another updated and calculated one
         if datemsg in msg:
             if t in msg:
                 msg = msg.replace(t, str(days))
@@ -229,9 +267,12 @@ def cal_weekly_usage(subject, login_recs):
 
 
 def cal_monthly_usage(subject, login_recs):
-    ''' docstring for this function
-    generate monthly usage report fro the given
+    '''generate monthly usage report fro the given
     subject (user or remote host)'''
+
+    # Adds the string to the top of the "table"
+    # With the border (being =) pritned by the length
+    # of the title
     msg = ""
     msg += "Monthly usage report for " + str(subject)
     msg += "\n"
@@ -248,6 +289,16 @@ def cal_monthly_usage(subject, login_recs):
     monthly_usage = 0
     diffdict = []
     tmp = []
+
+    # Runs through a for loop, where it goes from
+    # The beginning of the 2d array to the end, 
+    # Starting with the inner array, selects the dates
+    # Puts them into a string, then the time module
+    # Puts them into tuples (being seconds), which
+    # Then calculates the difference between the two dates
+    # Which the data is then "displayed" for the user
+    # Then repeats until there are no more dates that need
+    # To be calculated 
     for item in range(0, len(login_recs)):
         datelist = login_recs[counter]
         
@@ -273,6 +324,10 @@ def cal_monthly_usage(subject, login_recs):
 
         datemsg = time.strftime("%Y %m", time.localtime(sec1))
         monthly_usage = int(monthly_usage)
+
+        # Checks if the date already exists,
+        # Which replaces the seconds into 
+        # Another updated and calculated one
         if datemsg in msg:
             if t in msg:
                 msg = msg.replace(t, str(days))
@@ -297,6 +352,8 @@ def cal_monthly_usage(subject, login_recs):
 
 # Checks for arguments
 if __name__ == "__main__":
+
+    # Arrgances the arguments (positional and optional)
     parser = argparse.ArgumentParser(
         description="Usage Report based on the last command",
         epilog='Copyright 2019 - Antonio Karlo Mijares')
@@ -317,16 +374,25 @@ if __name__ == "__main__":
                         action='store_true')
     args = parser.parse_args()
 
-    
+    # If verbose is selected, it is prints out the processes
     if args.verbose:
         print("Files to be processed: " + str(args.F))
         print("Type of args for files <class 'list'>")
 
+    # If List is selected, it displays the table of the 
+    # Existing users or hosts
     if args.list:
         print(getlist(args.F))
 
+    # If user is selected
+    # It then goes through another condition
+    # Where it checks if daily, weekly, or monthly
+    # Needs to be calc, where it then calls the appropriate
+    # Function
     if args.user:
         if args.type == 'daily':
+            # If verbose is selected, it prints out
+            # The rest of the processes
             if args.verbose:
                 print("Usage report for user: " + str(args.user))
                 print("Usage report type: " + str(args.type))
@@ -335,6 +401,8 @@ if __name__ == "__main__":
             filetouse = read_login_rec(args.user, args.F)
             print(cal_daily_usage(args.user, filetouse))
         elif args.type == 'weekly':
+            # If verbose is selected, it prints out
+            # The rest of the processes
             if args.verbose:
                 print("Usage report for user: " + str(args.user))
                 print("Usage report type: " + str(args.type))
@@ -343,6 +411,8 @@ if __name__ == "__main__":
             filetouse = read_login_rec(args.user, args.F)
             print(cal_weekly_usage(args.user, filetouse))
         elif args.type == 'monthly':
+            # If verbose is selected, it prints out
+            # The rest of the processes
             if args.verbose:
                 print("Usage report for user: " + str(args.user))
                 print("Usage report type: " + str(args.type))
@@ -351,8 +421,15 @@ if __name__ == "__main__":
             filetouse = read_login_rec(args.user, args.F)
             print(cal_monthly_usage(args.user, filetouse))
 
+    # If user is selected
+    # It then goes through another condition
+    # Where it checks if daily, weekly, or monthly
+    # Needs to be calc, where it then calls the appropriate
+    # Function
     if args.rhost:
         if args.type == 'daily':
+            # If verbose is selected, it prints out
+            # The rest of the processes
             if args.verbose:
                 print("Usage report for remote host: " + str(args.rhost))
                 print("Usage report type: " + str(args.type))
@@ -361,6 +438,8 @@ if __name__ == "__main__":
             filetouse = read_login_rec(args.rhost, args.F)
             print(cal_daily_usage(args.rhost, filetouse))
         elif args.type == 'weekly':
+            # If verbose is selected, it prints out
+            # The rest of the processes
             if args.verbose:
                 print("Usage report for remote host: " + str(args.rhost))
                 print("Usage report type: " + str(args.type))
@@ -369,6 +448,8 @@ if __name__ == "__main__":
             filetouse = read_login_rec(args.rhost, args.F)
             print(cal_weekly_usage(args.rhost, filetouse))
         elif args.type == 'monthly':
+            # If verbose is selected, it prints out
+            # The rest of the processes
             if args.verbose:
                 print("Usage report for rhost: " + str(args.rhost))
                 print("Usage report type: " + str(args.type))
