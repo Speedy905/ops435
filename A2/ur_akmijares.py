@@ -21,12 +21,18 @@
    Calculate user usage for the day, week or month
 '''
 
+# Imports the needed modules
 import sys
 import argparse
 import time
 
 
 def getlist(filelist):
+    ''' docstring for this function
+    If the user decides to display
+    the info, it will search through
+    the file and filter out the 
+    appropriate variable'''
     file = open(filelist, 'r')
     fileRead = file.readlines()
     fileRead = fileRead[1::]
@@ -50,7 +56,11 @@ def getlist(filelist):
     NameList = list(NameList)
     NameList.sort()
 
-    login = u + ' ' + 'list for' + ' ' + filelist + '\n' '=============================' '\n'
+    login = u + ' ' + 'list for' + ' ' + filelist
+    login += '\n'
+    for length in range (1, len(login)):
+        login += "="
+    login += '\n'
     for eachName in NameList:
         login += eachName
         login += '\n'
@@ -88,7 +98,8 @@ def cal_daily_usage(subject, login_recs):
     msg = ""
     msg += "Daily usage report for " + str(subject)
     msg += "\n"
-    msg += "======================================="
+    for length in range(1, len(msg)):
+        msg += "="
     msg += "\n"
     msg += "Date                   Usage in seconds"
     msg += "\n"
@@ -137,7 +148,8 @@ def cal_weekly_usage(subject, login_recs):
     msg = ""
     msg += "Weekly usage report for " + str(subject)
     msg += "\n"
-    msg += "======================================="
+    for length in range(1, len(msg)):
+        msg += "="
     msg += "\n"
     msg += "Date                   Usage in seconds"
     msg += "\n"
@@ -164,8 +176,11 @@ def cal_weekly_usage(subject, login_recs):
 
         datemsg = time.strftime("%Y %W", time.localtime(sec1))
         weekly_usage = int(weekly_usage)
-        msg += str(datemsg) + "                 " + str(weekly_usage)
-        msg += "\n" 
+        if datemsg in msg:
+            pass
+        else:
+            msg += str(datemsg) + "                 " + str(weekly_usage)
+            msg += "\n" 
     
     msg += "Total" + "                   " + str(weekly_usage)
     return msg
@@ -180,7 +195,8 @@ def cal_monthly_usage(subject, login_recs):
     msg = ""
     msg += "Monthly usage report for " + str(subject)
     msg += "\n"
-    msg += "======================================="
+    for length in range (1,len(msg)):
+        msg += "="
     msg += "\n"
     msg += "Date                   Usage in seconds"
     msg += "\n"
@@ -207,8 +223,11 @@ def cal_monthly_usage(subject, login_recs):
 
         datemsg = time.strftime("%Y %m", time.localtime(sec1))
         monthly_usage = int(monthly_usage)
-        msg += str(datemsg) + "                 " + str(monthly_usage)
-        msg += "\n" 
+        if datemsg in msg:
+            pass
+        else:
+            msg += str(datemsg) + "                 " + str(monthly_usage)
+            msg += "\n" 
     
     msg += "Total" + "                   " + str(monthly_usage)
     return msg
